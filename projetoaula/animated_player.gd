@@ -3,7 +3,7 @@ extends CharacterBody2D
 @export var speed := 400
 @export var jump_speed := -1000.0
 @export var gravity := 2500.0
-@onready var sprite = $Sprites
+@onready var sprite = $AnimatedSprite2D
 
 func get_input():
 	var input_direction := Input.get_axis("left", "right")
@@ -15,33 +15,15 @@ func get_input():
 		position.y += 1
 
 func _physics_process(delta):
-	print(Input.get_axis("left", "right"))
 	velocity.y = velocity.y + (gravity * delta)
 	get_input()
 	animate()
 	move_and_slide()
 	
 func animate():
-	if not is_on_floor():
-		sprite.play("Jump")
-		if velocity.y < 0:
-			if sprite.frame < 3:
-				sprite.frame += 1
-			else:
-				sprite.frame = 3
-		else:
-			if sprite.frame < 4:
-				sprite.frame = 4
-			elif sprite.frame < 5:
-				sprite.frame += 1
-			else:
-				sprite.frame = 5
-		return
 	if velocity.x > 0:
-		sprite.flip_h = false
-		sprite.play("Walk")
+		sprite.play("right")
 	elif velocity.x < 0:
-		sprite.flip_h = true
-		sprite.play("Walk")
+		sprite.play("left")
 	else:
-		sprite.play("Idle")
+		sprite.stop()

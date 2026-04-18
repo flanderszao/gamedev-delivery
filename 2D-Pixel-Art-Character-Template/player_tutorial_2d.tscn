@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://blxkdu2c5toow"]
+
+[ext_resource type="Script" uid="uid://g7tckgrx2s45" path="res://player_tutorial_2d.gd" id="1_wpytm"]
+[ext_resource type="Texture2D" uid="uid://xsfgddyhqapt" path="res://icon.svg" id="2_pgu66"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0xm2m"]
+size = Vector2(118, 116)
+
+[node name="PlayerTutorial2D" type="CharacterBody2D" unique_id=354187626]
+script = ExtResource("1_wpytm")
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=440235388]
+rotation = -0.0056201937
+texture = ExtResource("2_pgu66")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1551928977]
+shape = SubResource("RectangleShape2D_0xm2m")
+debug_color = Color(0.22079399, 0.6259368, 0.37835655, 0.41960785)

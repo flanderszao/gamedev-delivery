@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://4qxvb7cdyvrv" path="res://teste.gd" id="1_ddwwg"]
 [ext_resource type="Texture2D" uid="uid://cn00ptqrsuwus" path="res://2D-Pixel-Art-Character-Template/Idle/Player Idle 48x48.png" id="2_3iyrq"]
+[ext_resource type="Script" uid="uid://da7gy3dxebn1a" path="res://personagem.gd" id="2_ddwwg"]
 [ext_resource type="Texture2D" uid="uid://ei3brbg3ri2f" path="res://2D-Pixel-Art-Character-Template/Run/player run 48x48.png" id="3_4iivt"]
 [ext_resource type="Texture2D" uid="uid://dfraqli17e268" path="res://2D-Pixel-Art-Character-Template/Jump/player jump left 48x48-sheet.png" id="3_cgmdw"]
 [ext_resource type="Texture2D" uid="uid://krn7q8h7n8bk" path="res://2D-Pixel-Art-Character-Template/Walk/PlayerWalk 48x48.png" id="4_cgmdw"]
@@ -192,7 +193,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_y5ym7")
 }],
-"loop": true,
+"loop": false,
 "name": &"Jump",
 "speed": 6.0
 }, {
@@ -262,12 +263,19 @@ size = Vector2(16, 27)
 resource_name = "terreno"
 texture = ExtResource("6_grbdc")
 0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 1:0/0 = 0
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 2:0/0 = 0
+2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 3:0/0 = 0
+3:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 4:0/0 = 0
+4:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 5:0/0 = 0
+5:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 6:0/0 = 0
+6:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 7:0/0 = 0
 8:0/0 = 0
 9:0/0 = 0
@@ -284,11 +292,17 @@ texture = ExtResource("6_grbdc")
 24:0/0 = 0
 25:0/0 = 0
 0:1/0 = 0
+0:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 1:1/0 = 0
+1:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 2:1/0 = 0
+2:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 3:1/0 = 0
+3:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 4:1/0 = 0
+4:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 5:1/0 = 0
+5:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 6:1/0 = 0
 7:1/0 = 0
 8:1/0 = 0
@@ -306,9 +320,13 @@ texture = ExtResource("6_grbdc")
 24:1/0 = 0
 25:1/0 = 0
 0:2/0 = 0
+0:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 1:2/0 = 0
+1:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 4:2/0 = 0
+4:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 5:2/0 = 0
+5:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 6:2/0 = 0
 7:2/0 = 0
 10:2/0 = 0
@@ -326,9 +344,13 @@ texture = ExtResource("6_grbdc")
 24:2/0 = 0
 25:2/0 = 0
 0:3/0 = 0
+0:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 1:3/0 = 0
+1:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 4:3/0 = 0
+4:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 5:3/0 = 0
+5:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 6:3/0 = 0
 7:3/0 = 0
 10:3/0 = 0
@@ -346,7 +368,9 @@ texture = ExtResource("6_grbdc")
 24:3/0 = 0
 25:3/0 = 0
 0:4/0 = 0
+0:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 1:4/0 = 0
+1:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 2:4/0 = 0
 3:4/0 = 0
 4:4/0 = 0
@@ -368,6 +392,7 @@ texture = ExtResource("6_grbdc")
 24:4/0 = 0
 25:4/0 = 0
 0:5/0 = 0
+0:5/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 1:5/0 = 0
 2:5/0 = 0
 3:5/0 = 0
@@ -419,7 +444,6 @@ texture = ExtResource("6_grbdc")
 13:7/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_f3wv5"]
-resource_name = "predio"
 texture = ExtResource("7_ddwwg")
 0:0/0 = 0
 1:0/0 = 0
@@ -1035,6 +1059,7 @@ texture = ExtResource("7_ddwwg")
 17:23/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_o5rjx"]
+physics_layer_0/collision_layer = 1
 sources/1 = SubResource("TileSetAtlasSource_f3wv5")
 sources/0 = SubResource("TileSetAtlasSource_ul6x0")
 
@@ -1042,18 +1067,19 @@ sources/0 = SubResource("TileSetAtlasSource_ul6x0")
 script = ExtResource("1_ddwwg")
 
 [node name="personagem" type="CharacterBody2D" parent="." unique_id=1438588857]
-position = Vector2(351, 167)
+position = Vector2(352, 131)
+script = ExtResource("2_ddwwg")
 
 [node name="Sprites" type="AnimatedSprite2D" parent="personagem" unique_id=1475663242]
 position = Vector2(-13, 135)
 sprite_frames = SubResource("SpriteFrames_guoat")
 animation = &"Idle"
-frame_progress = 0.6932833
 
 [node name="Colisao" type="CollisionShape2D" parent="personagem" unique_id=128202204]
 position = Vector2(-14, 138)
 shape = SubResource("RectangleShape2D_3m8kk")
 
 [node name="TileMapPrédio" type="TileMapLayer" parent="." unique_id=341454010]
-tile_map_data = PackedByteArray("AAAPABQAAAAAAAAAAAAQABUAAAABAAEAAAARABQAAAACAAAAAAARABUAAAACAAEAAAASABQAAAADAAAAAAASABUAAAADAAEAAAATABQAAAAEAAAAAAATABUAAAAEAAEAAAAUABQAAAADAAAAAAAUABUAAAADAAEAAAAVABQAAAAEAAAAAAAVABUAAAAEAAEAAAAPABUAAAAAAAEAAAAQABQAAAABAAAAAAAWABQAAAABAAAAAAAWABUAAAABAAEAAAAXABQAAAACAAAAAAAXABUAAAACAAEAAAAYABQAAAADAAAAAAAYABUAAAADAAEAAAAZABQAAAABAAAAAAAZABUAAAABAAEAAAAaABQAAAACAAAAAAAaABUAAAACAAEAAAAbABQAAAADAAAAAAAbABUAAAADAAEAAAAcABQAAAAEAAAAAAAcABUAAAAEAAEAAAAdABQAAAAFAAAAAAAdABUAAAAFAAEAAAA=")
+position = Vector2(338, 336)
+tile_map_data = PackedByteArray("AAD9////AAAEAAAAAAD9/wAAAAAEAAEAAAD+////AAABAAAAAAD+/wAAAAABAAEAAAD/////AAACAAAAAAD//wAAAAACAAEAAAAAAP//AAADAAAAAAAAAAAAAAADAAEAAAABAP//AAAEAAAAAAABAAAAAAAEAAEAAAACAP//AAABAAAAAAACAAAAAAABAAEAAAD7////AAACAAAAAAD7/wAAAAACAAEAAAD8////AAADAAAAAAD8/wAAAAADAAEAAAD4////AAAAAAAAAAD4/wAAAAAAAAEAAAD5////AAABAAAAAAD5/wAAAAABAAEAAAD6////AAABAAAAAAD6/wAAAAABAAEAAAADAP//AAACAAAAAAADAAAAAAACAAEAAAAEAP//AAADAAAAAAAEAAAAAAADAAEAAAAFAP//AAAEAAAAAAAFAAAAAAAEAAEAAAAGAP//AAABAAAAAAAGAAAAAAABAAEAAAAHAP//AAACAAAAAAAHAAAAAAACAAEAAAAIAP//AAADAAAAAAAIAAAAAAADAAEAAAAJAP//AAAFAAAAAAAJAAAAAAAFAAEAAAAIAP3/AAAAAAAAAAAIAP7/AAAAAAEAAAAJAP3/AAABAAAAAAAJAP7/AAABAAEAAAA=")
 tile_set = SubResource("TileSet_o5rjx")
