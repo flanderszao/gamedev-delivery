@@ -5,10 +5,45 @@
 [ext_resource type="Script" uid="uid://da7gy3dxebn1a" path="res://personagem.gd" id="2_ddwwg"]
 [ext_resource type="Texture2D" uid="uid://ei3brbg3ri2f" path="res://2D-Pixel-Art-Character-Template/Run/player run 48x48.png" id="3_4iivt"]
 [ext_resource type="Texture2D" uid="uid://dfraqli17e268" path="res://2D-Pixel-Art-Character-Template/Jump/player jump left 48x48-sheet.png" id="3_cgmdw"]
+[ext_resource type="Texture2D" uid="uid://d85t152ptjv7" path="res://2D-Pixel-Art-Character-Template/Jump/player jump 48x48.png" id="3_o5rjx"]
 [ext_resource type="Texture2D" uid="uid://krn7q8h7n8bk" path="res://2D-Pixel-Art-Character-Template/Walk/PlayerWalk 48x48.png" id="4_cgmdw"]
+[ext_resource type="Texture2D" uid="uid://c3jusyk4ap0ux" path="res://2D-Pixel-Art-Character-Template/Air Spin/player air spin 48x48.png" id="4_suirj"]
 [ext_resource type="Texture2D" uid="uid://m37fmyp0pdp8" path="res://GandalfHardcore City Tiles/GandalfHardcore city tiles 32x32.png" id="6_grbdc"]
 [ext_resource type="Texture2D" uid="uid://b3uunvfoomh5o" path="res://2D-Pixel-Art-Character-Template/Dash/dash.png" id="6_ul6x0"]
 [ext_resource type="Texture2D" uid="uid://b5wywobjh5fos" path="res://GandalfHardcore City Tiles/Building Tiles 32x32.png" id="7_ddwwg"]
+[ext_resource type="Texture2D" uid="uid://bpogwxva0s5n4" path="res://2D-Pixel-Art-Character-Template/Wall Land/player wall land 48x48.png" id="10_suirj"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b17fa"]
+atlas = ExtResource("3_o5rjx")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_al6ht"]
+atlas = ExtResource("3_o5rjx")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ra77c"]
+atlas = ExtResource("4_suirj")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a62kb"]
+atlas = ExtResource("4_suirj")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r80fm"]
+atlas = ExtResource("4_suirj")
+region = Rect2(96, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j7wu3"]
+atlas = ExtResource("4_suirj")
+region = Rect2(144, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1u8j2"]
+atlas = ExtResource("4_suirj")
+region = Rect2(192, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lt3g6"]
+atlas = ExtResource("4_suirj")
+region = Rect2(240, 0, 48, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_grbdc"]
 atlas = ExtResource("2_3iyrq")
@@ -154,8 +189,61 @@ region = Rect2(288, 0, 48, 48)
 atlas = ExtResource("4_cgmdw")
 region = Rect2(336, 0, 48, 48)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_f7php"]
+atlas = ExtResource("10_suirj")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uqkeg"]
+atlas = ExtResource("10_suirj")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gi0x1"]
+atlas = ExtResource("10_suirj")
+region = Rect2(96, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qh13i"]
+atlas = ExtResource("10_suirj")
+region = Rect2(144, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tyadp"]
+atlas = ExtResource("10_suirj")
+region = Rect2(192, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_owq3q"]
+atlas = ExtResource("10_suirj")
+region = Rect2(240, 0, 48, 48)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_guoat"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b17fa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_al6ht")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ra77c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a62kb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r80fm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j7wu3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1u8j2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lt3g6")
+}],
+"loop": false,
+"name": &"FrontJump",
+"speed": 16.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_grbdc")
@@ -288,6 +376,29 @@ animations = [{
 "loop": true,
 "name": &"Walk",
 "speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f7php")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uqkeg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gi0x1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qh13i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tyadp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_owq3q")
+}],
+"loop": false,
+"name": &"WallGrab",
+"speed": 5.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3m8kk"]
@@ -1239,7 +1350,7 @@ script = ExtResource("2_ddwwg")
 [node name="Sprites" type="AnimatedSprite2D" parent="personagem" unique_id=1475663242]
 position = Vector2(-13, 135)
 sprite_frames = SubResource("SpriteFrames_guoat")
-animation = &"Stop"
+animation = &"WallGrab"
 
 [node name="Colisao" type="CollisionShape2D" parent="personagem" unique_id=128202204]
 position = Vector2(-14, 138)

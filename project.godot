@@ -15,6 +15,10 @@ run/main_scene="uid://c53fa2iyl1fqp"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[editor]
+
+movie_writer/movie_file="D:/Rafael/Projetos/gamedev/gamedev-delivery/capture.avi"
+
 [input]
 
 left={
