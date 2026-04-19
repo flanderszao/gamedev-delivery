@@ -9,8 +9,13 @@ extends CharacterBody2D
 @export var ground_friction := 400.0 #fricção de movimento
 @export var skid_friction := 900.0 #fricção de freio
 
+@export var camera_offset_x := 100
+
 @onready var sprite = $Sprites
 @onready var sfx = $SFX
+@onready var camera = $Camera
+@onready var colisao1 = $DePe
+@onready var colisao2 = $Agachado
 
 @export var wants_run = false #trava de corrida do personagem
 
@@ -21,34 +26,46 @@ enum State { #estados que o personagem pode estar, relevante para sprites
 	SKID,
 	JUMP,
 	FRONTJUMP,
-	WALLGRAB
+	WALLGRAB,
+	SLIDE
+}
+
+enum FACE {
+	Right,
+	Left
 }
 
 var pulo_sfx = preload("res://SoundsAssets/pulo.wav")
 var pegada_sfx = preload("res://SoundsAssets/pegada.wav")
 var freio_sfx = preload("res://SoundsAssets/freio(sonic).wav")
 
-var state = State.IDLE #estado atual do personagem
+@export var state = State.IDLE #estado atual do personagem
 var last_state = state #último estado do personagem
 var state_frames := 0 #há quanto tempo está no mesmo state
 
 var turn_lock_time := 0.0 #trava de movimento
 var stored_velocity := 0 #velocidade guardada, relevante pra momentum
+var recharge := 0
+var energy := 100
 
 var step_timer := 0 #para pegadas
 
+var face = FACE.Right
 
 func _physics_process(delta):
 	var input_direction := Input.get_axis("left", "right")
 
 	get_input()
 	update_state(input_direction)
+	update_collision()
 
 	if turn_lock_time > 0:
 		turn_lock_time -= delta
 
 	update_movement(input_direction, delta)
 	update_face(input_direction)
+	update_camera()
+	update_energy(delta)
 
 	move_and_slide()
 	animate()
@@ -65,10 +82,16 @@ func _physics_process(delta):
 
 func get_input():
 	if Input.is_action_just_pressed("a_button"): #gatilho de corrida
+		if state == State.SLIDE:
+			state = State.RUN
 		wants_run = true
+		
+	if Input.is_action_pressed("down") and state == State.RUN:
+		state = State.SLIDE
+		turn_lock_time = 0.3
 
 	if Input.is_action_just_pressed("up") and is_on_floor(): #pulo
-		if state == State.RUN:
+		if state == State.RUN or state == State.SLIDE:
 			state = State.FRONTJUMP
 		else:
 			state = State.JUMP
@@ -79,6 +102,15 @@ func get_input():
 func update_state(input_direction):
 	if is_skidding(input_direction): #desativa corrida se freiar
 		wants_run = false
+		
+	if state == State.SLIDE:
+		if not is_on_floor():
+			state = State.FRONTJUMP
+			return
+		if abs(velocity.x) < 50:
+			state = State.IDLE
+			return
+		return
 	
 	if not is_on_floor():
 		if state == State.WALLGRAB and Input.is_action_just_pressed("up"):
@@ -132,6 +164,10 @@ func update_movement(input_direction, delta):
 	if state == State.SKID:
 		velocity.x = move_toward(velocity.x, 0, skid_friction * delta)
 		return
+		
+	if state == State.SLIDE:
+		velocity.x *= 0.99
+		return
 
 	if input_direction != 0:
 		velocity.x = move_toward(
@@ -155,7 +191,46 @@ func update_face(_input_direction):
 		return
 
 	if abs(velocity.x) > 10:
-		sprite.flip_h = velocity.x < 0
+		if velocity.x < 0:
+			face = FACE.Left
+		else:
+			face = FACE.Right
+			
+	sprite.flip_h = (face == FACE.Left)
+
+func update_collision():
+	if state == State.SLIDE:
+		colisao1.disabled = true
+		colisao2.disabled = false
+	else:
+		colisao1.disabled = false
+		colisao2.disabled = true
+
+func update_camera():
+	var base = 80 if face == FACE.Right else -80
+	var look = velocity.x * 0.2
+	
+	var target = base + look
+	
+	if not state == State.WALLGRAB:
+		camera.offset.x = lerp(camera.offset.x, target, 0.1)
+		
+func update_energy(delta):
+	if state == State.SKID and state_frames == 0:
+		if energy + recharge > 100:
+			energy = 100
+		else:
+			energy += recharge
+		recharge = 0
+		return
+
+	if abs(velocity.x) > 100:
+		recharge += abs(velocity.x) * 0.1 * delta
+	else:
+		recharge = move_toward(recharge, 0, 50 * delta)
+		
+	energize()
+	
 
 func is_skidding(input_direction):
 	if is_on_floor():
@@ -195,6 +270,10 @@ func animate():
 		State.SKID:
 			if sprite.animation != "Stop":
 				sprite.play("Stop")
+				
+		State.SLIDE:
+			if sprite.animation != "Slide":
+				sprite.play("Slide")
 
 		State.RUN:
 			if sprite.animation != "Run":
@@ -205,6 +284,7 @@ func animate():
 				sprite.play("Walk")
 
 		State.IDLE:
+			wants_run=false
 			if sprite.animation != "Idle":
 				sprite.play("Idle")
 
@@ -224,6 +304,11 @@ func soundize(delta):
 			pass
 
 		State.SKID:
+			if state_frames == 7:
+				sfx.stream = freio_sfx
+				sfx.play()
+				
+		State.SLIDE:
 			if state_frames == 7:
 				sfx.stream = freio_sfx
 				sfx.play()
@@ -247,3 +332,10 @@ func soundize(delta):
 			
 		_:
 			pass
+
+func energize():
+	match state:
+		State.JUMP, State.FRONTJUMP:
+			if state_frames == 0 and energy > 0:
+				energy -= 10
+	
