@@ -1,47 +1,148 @@
 extends CharacterBody2D
 
-@export var speed := 400
-@export var jump_speed := -1000.0
+@export var walk_speed := 100
+@export var run_speed := 600
+@export var jump_speed := -800.0
 @export var gravity := 2500.0
+
+@export var acceleration := 200.0
+@export var ground_friction := 400.0
+@export var skid_friction := 900.0
+
 @onready var sprite = $Sprites
 
-func get_input():
-	var input_direction := Input.get_axis("left", "right")
-	velocity.x = input_direction * speed
-	var jump := Input.is_action_just_pressed("ui_select")
-	if jump and is_on_floor():
-		velocity.y = jump_speed
-	if is_on_floor() and Input.is_action_just_pressed("down"):
-		position.y += 1
+@export var wants_run = false
+
+enum State {
+	IDLE,
+	WALK,
+	RUN,
+	SKID,
+	JUMP
+}
+
+enum Face {
+	LEFT,
+	RIGHT
+}
+
+var state = State.IDLE
+var face = Face.RIGHT
+var turn_lock_time := 0.0
+
 
 func _physics_process(delta):
-	print(Input.get_axis("left", "right"))
-	velocity.y = velocity.y + (gravity * delta)
+	var input_direction := Input.get_axis("left", "right")
+
 	get_input()
-	animate()
+	update_state(input_direction)
+
+	if turn_lock_time > 0:
+		turn_lock_time -= delta
+
+	update_movement(input_direction, delta)
+	update_face(input_direction)
+
 	move_and_slide()
+	animate()
+
+
+func get_input():
+	if Input.is_action_just_pressed("a_button"):
+		wants_run = true
+
+	if Input.is_action_just_pressed("up") and is_on_floor():
+		velocity.y = jump_speed
+
+
+func update_state(input_direction):
+	if is_skidding(input_direction):
+		wants_run = false
 	
-func animate():
 	if not is_on_floor():
-		sprite.play("Jump")
-		if velocity.y < 0:
-			if sprite.frame < 3:
-				sprite.frame += 1
-			else:
-				sprite.frame = 3
-		else:
-			if sprite.frame < 4:
-				sprite.frame = 4
-			elif sprite.frame < 5:
-				sprite.frame += 1
-			else:
-				sprite.frame = 5
+		state = State.JUMP
 		return
-	if velocity.x > 0:
-		sprite.flip_h = false
-		sprite.play("Walk")
-	elif velocity.x < 0:
-		sprite.flip_h = true
-		sprite.play("Walk")
+
+	if is_skidding(input_direction):
+		if state != State.SKID:
+			turn_lock_time = 0.50
+		state = State.SKID
+		return
+
+	if abs(velocity.x) < 25:
+		state = State.IDLE
+		return
+
+	if abs(velocity.x) > 300:
+		state = State.RUN
 	else:
-		sprite.play("Idle")
+		state = State.WALK
+
+
+func update_movement(input_direction, delta):
+	var target_speed = walk_speed
+	if wants_run:
+		target_speed = run_speed
+
+	if state == State.SKID:
+		velocity.x = move_toward(velocity.x, 0, skid_friction * delta)
+		return
+
+	if input_direction != 0:
+		velocity.x = move_toward(
+			velocity.x,
+			input_direction * target_speed,
+			acceleration * delta
+		)
+	else:
+		velocity.x = move_toward(
+			velocity.x,
+			0,
+			ground_friction * delta
+		)
+
+	if not is_on_floor():
+		velocity.y += gravity * delta
+
+
+func update_face(input_direction):
+	if turn_lock_time > 0:
+		return
+
+	if input_direction != 0:
+		face = Face.RIGHT if input_direction > 0 else Face.LEFT
+	elif abs(velocity.x) > 10:
+		face = Face.RIGHT if velocity.x > 0 else Face.LEFT
+
+func is_skidding(input_direction):
+	if input_direction == 0:
+		return false
+
+	if abs(velocity.x) < 50:
+		return false
+
+	return input_direction * velocity.x < 0
+
+func animate():
+	sprite.flip_h = (face == Face.LEFT)
+
+	match state:
+		State.JUMP:
+			if sprite.animation != "Jump":
+				sprite.play("Jump")
+
+		State.SKID:
+			if sprite.animation != "Stop":
+				sprite.play("Stop")
+
+		State.RUN:
+			if sprite.animation != "Run":
+				sprite.play("Run")
+
+		State.WALK:
+			if sprite.animation != "Walk":
+				sprite.play("Walk")
+
+		State.IDLE:
+			if sprite.animation != "Idle":
+				sprite.play("Idle")
