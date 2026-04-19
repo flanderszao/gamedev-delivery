@@ -7,9 +7,10 @@ func _ready():
 	print("Level loaded")
 	
 func _process(delta):
-	debug_label.text = "STATE: %s\nVEL: %s\nRUN: %s" % [
+	debug_label.text = "STATE: %s\nVEL: %s\nSVEL: %s\nRUN: %s" % [
 		get_state_name(),
 		player.velocity.x,
+		player.stored_velocity,
 		player.wants_run
 	]
 	

@@ -1,19 +1,19 @@
 [gd_scene format=4 uid="uid://c53fa2iyl1fqp"]
 
 [ext_resource type="Script" uid="uid://4qxvb7cdyvrv" path="res://teste.gd" id="1_ddwwg"]
-[ext_resource type="Texture2D" uid="uid://cn00ptqrsuwus" path="res://SpriteWork/2D-Pixel-Art-Character-Template/Idle/Player Idle 48x48.png" id="2_3iyrq"]
+[ext_resource type="Texture2D" uid="uid://cn00ptqrsuwus" path="res://2D-Pixel-Art-Character-Template/Idle/Player Idle 48x48.png" id="2_3iyrq"]
 [ext_resource type="Script" uid="uid://da7gy3dxebn1a" path="res://personagem.gd" id="2_ddwwg"]
-[ext_resource type="Texture2D" uid="uid://ei3brbg3ri2f" path="res://SpriteWork/2D-Pixel-Art-Character-Template/Run/player run 48x48.png" id="3_4iivt"]
-[ext_resource type="Texture2D" uid="uid://dfraqli17e268" path="res://SpriteWork/2D-Pixel-Art-Character-Template/Jump/player jump left 48x48-sheet.png" id="3_cgmdw"]
-[ext_resource type="Texture2D" uid="uid://cq8euouhyffsg" path="res://SpriteWork/2D-Pixel-Art-Character-Template/Death/Player Death 64x64.png" id="3_nh4wr"]
-[ext_resource type="Texture2D" uid="uid://d85t152ptjv7" path="res://SpriteWork/2D-Pixel-Art-Character-Template/Jump/player jump 48x48.png" id="3_o5rjx"]
-[ext_resource type="Texture2D" uid="uid://krn7q8h7n8bk" path="res://SpriteWork/2D-Pixel-Art-Character-Template/Walk/PlayerWalk 48x48.png" id="4_cgmdw"]
-[ext_resource type="Texture2D" uid="uid://c3jusyk4ap0ux" path="res://SpriteWork/2D-Pixel-Art-Character-Template/Air Spin/player air spin 48x48.png" id="4_suirj"]
-[ext_resource type="Texture2D" uid="uid://m37fmyp0pdp8" path="res://Tiles/GandalfHardcore City Tiles/GandalfHardcore city tiles 32x32.png" id="6_grbdc"]
-[ext_resource type="Texture2D" uid="uid://b3uunvfoomh5o" path="res://SpriteWork/2D-Pixel-Art-Character-Template/Dash/dash.png" id="6_ul6x0"]
-[ext_resource type="Texture2D" uid="uid://b5wywobjh5fos" path="res://Tiles/GandalfHardcore City Tiles/Building Tiles 32x32.png" id="7_ddwwg"]
-[ext_resource type="Texture2D" uid="uid://bbq1ww5jbjfka" path="res://SpriteWork/2D-Pixel-Art-Character-Template/Hurt-Damaged/Player Hurt 48x48.png" id="7_wur0a"]
-[ext_resource type="Texture2D" uid="uid://bpogwxva0s5n4" path="res://SpriteWork/2D-Pixel-Art-Character-Template/Wall Land/player wall land 48x48.png" id="10_suirj"]
+[ext_resource type="Texture2D" uid="uid://ei3brbg3ri2f" path="res://2D-Pixel-Art-Character-Template/Run/player run 48x48.png" id="3_4iivt"]
+[ext_resource type="Texture2D" uid="uid://dfraqli17e268" path="res://2D-Pixel-Art-Character-Template/Jump/player jump left 48x48-sheet.png" id="3_cgmdw"]
+[ext_resource type="Texture2D" uid="uid://cq8euouhyffsg" path="res://2D-Pixel-Art-Character-Template/Death/Player Death 64x64.png" id="3_nh4wr"]
+[ext_resource type="Texture2D" uid="uid://d85t152ptjv7" path="res://2D-Pixel-Art-Character-Template/Jump/player jump 48x48.png" id="3_o5rjx"]
+[ext_resource type="Texture2D" uid="uid://krn7q8h7n8bk" path="res://2D-Pixel-Art-Character-Template/Walk/PlayerWalk 48x48.png" id="4_cgmdw"]
+[ext_resource type="Texture2D" uid="uid://c3jusyk4ap0ux" path="res://2D-Pixel-Art-Character-Template/Air Spin/player air spin 48x48.png" id="4_suirj"]
+[ext_resource type="Texture2D" uid="uid://m37fmyp0pdp8" path="res://GandalfHardcore City Tiles/GandalfHardcore city tiles 32x32.png" id="6_grbdc"]
+[ext_resource type="Texture2D" uid="uid://b3uunvfoomh5o" path="res://2D-Pixel-Art-Character-Template/Dash/dash.png" id="6_ul6x0"]
+[ext_resource type="Texture2D" uid="uid://b5wywobjh5fos" path="res://GandalfHardcore City Tiles/Building Tiles 32x32.png" id="7_ddwwg"]
+[ext_resource type="Texture2D" uid="uid://bbq1ww5jbjfka" path="res://2D-Pixel-Art-Character-Template/Hurt-Damaged/Player Hurt 48x48.png" id="7_wur0a"]
+[ext_resource type="Texture2D" uid="uid://bpogwxva0s5n4" path="res://2D-Pixel-Art-Character-Template/Wall Land/player wall land 48x48.png" id="10_suirj"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qshiq"]
 atlas = ExtResource("3_nh4wr")
@@ -1484,9 +1484,6 @@ frame_progress = 1.0
 [node name="Colisao" type="CollisionShape2D" parent="personagem" unique_id=128202204]
 position = Vector2(233, 166)
 shape = SubResource("RectangleShape2D_3m8kk")
-
-[node name="SFX" type="AudioStreamPlayer2D" parent="personagem" unique_id=1967733334]
-max_polyphony = 8
 
 [node name="TileMapPrédio" type="TileMapLayer" parent="." unique_id=341454010]
 position = Vector2(338, 336)

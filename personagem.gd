@@ -10,6 +10,7 @@ extends CharacterBody2D
 @export var skid_friction := 900.0 #fricção de freio
 
 @onready var sprite = $Sprites
+@onready var sfx = $SFX
 
 @export var wants_run = false #trava de corrida do personagem
 
@@ -23,15 +24,17 @@ enum State { #estados que o personagem pode estar, relevante para sprites
 	WALLGRAB
 }
 
-enum Face {
-	LEFT,
-	RIGHT
-}
+var pulo_sfx = preload("res://SoundsAssets/pulo.wav")
+var pegada_sfx = preload("res://SoundsAssets/pegada.wav")
+var freio_sfx = preload("res://SoundsAssets/freio(sonic).wav")
 
 var state = State.IDLE #estado atual do personagem
 var last_state = state #último estado do personagem
-var face = Face.RIGHT #lado para qual o personagem está virado
 var turn_lock_time := 0.0 #trava de movimento
+var stored_velocity := 0 #velocidade guardada, relevante pra momentum
+
+var step_timer := 0 #para pegadas
+var played := false
 
 
 func _physics_process(delta):
@@ -48,6 +51,7 @@ func _physics_process(delta):
 
 	move_and_slide()
 	animate()
+	soundize(delta)
 
 
 func get_input():
@@ -69,18 +73,19 @@ func update_state(input_direction):
 	
 	if not is_on_floor():
 		if state == State.WALLGRAB and Input.is_action_just_pressed("up"):
-			do_wall_jump() #pulo na parede
+			do_wall_jump()
+			return
+			
+		if is_on_wall() and state == State.FRONTJUMP:
+			state = State.WALLGRAB
 			return
 		
 		if state == State.WALLGRAB:
 			return
 
-		if is_on_wall() and (state == State.JUMP or state == State.FRONTJUMP):
-			state = State.WALLGRAB
-			return
-
 		if state == State.FRONTJUMP:
-			pass
+			stored_velocity = abs(velocity.x)
+			return
 
 		if last_state == State.RUN:
 			state = State.FRONTJUMP
@@ -141,37 +146,35 @@ func update_movement(input_direction, delta):
 		velocity.y += gravity * delta
 
 
-func update_face(input_direction):
+func update_face(_input_direction):
 	if turn_lock_time > 0:
 		return
 
-	if input_direction != 0:
-		face = Face.RIGHT if input_direction > 0 else Face.LEFT
-	elif abs(velocity.x) > 10:
-		face = Face.RIGHT if velocity.x > 0 else Face.LEFT
+	if abs(velocity.x) > 10:
+		sprite.flip_h = velocity.x < 0
 
 func is_skidding(input_direction):
-	if input_direction == 0:
-		return false
+	if is_on_floor():
+		if input_direction == 0:
+			return false
 
-	if abs(velocity.x) < 50:
-		return false
+		if abs(velocity.x) < 50:
+			return false
 
-	return sign(input_direction) != sign(velocity.x)
+		return sign(input_direction) != sign(velocity.x)
 
 func do_wall_jump():
 	var wall_dir = get_wall_normal().x
 
-	velocity.x = wall_dir * run_speed
+	velocity.x = wall_dir * stored_velocity
 	velocity.y = jump_speed
 
 	state = State.FRONTJUMP
 	last_state = State.RUN
+	sprite.flip_h = wall_dir < 0
 	turn_lock_time = 0.2
 
 func animate():
-	sprite.flip_h = (face == Face.LEFT)
-
 	match state:
 		State.JUMP:
 			if sprite.animation != "Jump":
@@ -200,3 +203,51 @@ func animate():
 		State.IDLE:
 			if sprite.animation != "Idle":
 				sprite.play("Idle")
+
+func soundize(delta):
+	
+	match state:
+		State.JUMP:
+			if not played:
+				sfx.stream = pulo_sfx
+				sfx.play()
+				played = true
+				
+		State.FRONTJUMP:
+			if not played:
+				sfx.stream = pulo_sfx
+				sfx.play()
+				played = true
+				
+		State.WALLGRAB:
+			played = false
+			pass
+
+		State.SKID:
+			if not played:
+				sfx.stream = freio_sfx
+				sfx.play()
+				played = true
+
+		State.RUN:
+			played = false
+			step_timer -= delta
+			if step_timer <= 0:
+				sfx.stream = pegada_sfx
+				sfx.play()
+				step_timer = 20
+
+		State.WALK:
+			played = false
+			step_timer -= delta
+			if step_timer <= 0:
+				sfx.stream = pegada_sfx
+				sfx.play()
+				step_timer = 30
+
+		State.IDLE:
+			played = false
+			pass
+			
+		_:
+			played = false
