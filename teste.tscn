@@ -531,6 +531,8 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3m8kk"]
 size = Vector2(16, 27)
 
+[sub_resource type="AudioStreamPlaylist" id="AudioStreamPlaylist_nh4wr"]
+
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ul6x0"]
 resource_name = "terreno"
 texture = ExtResource("6_grbdc")
@@ -1486,6 +1488,7 @@ position = Vector2(233, 166)
 shape = SubResource("RectangleShape2D_3m8kk")
 
 [node name="SFX" type="AudioStreamPlayer2D" parent="personagem" unique_id=1967733334]
+stream = SubResource("AudioStreamPlaylist_nh4wr")
 max_polyphony = 8
 
 [node name="TileMapPrédio" type="TileMapLayer" parent="." unique_id=341454010]

@@ -30,11 +30,12 @@ var freio_sfx = preload("res://SoundsAssets/freio(sonic).wav")
 
 var state = State.IDLE #estado atual do personagem
 var last_state = state #último estado do personagem
+var state_frames := 0 #há quanto tempo está no mesmo state
+
 var turn_lock_time := 0.0 #trava de movimento
 var stored_velocity := 0 #velocidade guardada, relevante pra momentum
 
 var step_timer := 0 #para pegadas
-var played := false
 
 
 func _physics_process(delta):
@@ -51,6 +52,14 @@ func _physics_process(delta):
 
 	move_and_slide()
 	animate()
+		
+	if state == last_state:
+		state_frames += 1
+	else:
+		state_frames = 0
+		
+	last_state = state
+	
 	soundize(delta)
 
 
@@ -98,21 +107,16 @@ func update_state(input_direction):
 		if state != State.SKID:
 			turn_lock_time = 0.50
 		state = State.SKID
-		last_state = state
 		return
 
 	if abs(velocity.x) < 25:
 		state = State.IDLE
-		last_state = state
 		return
 
 	if abs(velocity.x) > 300:
 		state = State.RUN
 	else:
 		state = State.WALK
-		
-	if is_on_floor():
-		last_state = state
 
 func update_movement(input_direction, delta):
 	var target_speed = walk_speed
@@ -204,33 +208,27 @@ func animate():
 			if sprite.animation != "Idle":
 				sprite.play("Idle")
 
-func soundize(delta):
-	
+func soundize(delta):		
 	match state:
 		State.JUMP:
-			if not played:
+			if state_frames == 0:
 				sfx.stream = pulo_sfx
 				sfx.play()
-				played = true
 				
 		State.FRONTJUMP:
-			if not played:
+			if state_frames == 0:
 				sfx.stream = pulo_sfx
 				sfx.play()
-				played = true
 				
 		State.WALLGRAB:
-			played = false
 			pass
 
 		State.SKID:
-			if not played:
+			if state_frames == 7:
 				sfx.stream = freio_sfx
 				sfx.play()
-				played = true
 
 		State.RUN:
-			played = false
 			step_timer -= delta
 			if step_timer <= 0:
 				sfx.stream = pegada_sfx
@@ -238,7 +236,6 @@ func soundize(delta):
 				step_timer = 20
 
 		State.WALK:
-			played = false
 			step_timer -= delta
 			if step_timer <= 0:
 				sfx.stream = pegada_sfx
@@ -246,8 +243,7 @@ func soundize(delta):
 				step_timer = 30
 
 		State.IDLE:
-			played = false
 			pass
 			
 		_:
-			played = false
+			pass

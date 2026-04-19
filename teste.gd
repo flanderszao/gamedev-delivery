@@ -7,8 +7,9 @@ func _ready():
 	print("Level loaded")
 	
 func _process(delta):
-	debug_label.text = "STATE: %s\nVEL: %s\nSVEL: %s\nRUN: %s" % [
+	debug_label.text = "STATE: %s\nSFX: %s\nVEL: %s\nSVEL: %s\nRUN: %s" % [
 		get_state_name(),
+		get_sfx_name(),
 		player.velocity.x,
 		player.stored_velocity,
 		player.wants_run
@@ -24,3 +25,9 @@ func get_state_name():
 		player.State.FRONTJUMP: return "FRONTJUMP"
 		player.State.WALLGRAB: return "WALLGRAB"
 	return "UNKNOWN"
+	
+func get_sfx_name():
+	var stream = player.sfx.stream
+	if stream == null:
+		return "NONE"
+	return stream.resource_path.get_file()
