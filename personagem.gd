@@ -45,7 +45,7 @@ var state_frames := 0 #há quanto tempo está no mesmo state
 
 var turn_lock_time := 0.0 #trava de movimento
 var stored_velocity := 0 #velocidade guardada, relevante pra momentum
-var recharge := 0
+var recharge := 0.0
 var energy := 100
 
 var step_timer := 0 #para pegadas
@@ -82,7 +82,7 @@ func _physics_process(delta):
 
 func get_input():
 	if Input.is_action_just_pressed("a_button"): #gatilho de corrida
-		if state == State.SLIDE:
+		if state == State.SLIDE and can_exit_slide():
 			state = State.RUN
 		wants_run = true
 		
@@ -90,12 +90,14 @@ func get_input():
 		state = State.SLIDE
 		turn_lock_time = 0.3
 
-	if Input.is_action_just_pressed("up") and is_on_floor(): #pulo
+	if Input.is_action_just_pressed("up") and is_on_floor() and energy>10: #pulo
+		if state == State.SLIDE and not can_exit_slide():
+			return
 		if state == State.RUN or state == State.SLIDE:
 			state = State.FRONTJUMP
 		else:
 			state = State.JUMP
-
+		energy -= 10 #diminui energia ao pular
 		velocity.y = jump_speed
 
 
@@ -104,11 +106,13 @@ func update_state(input_direction):
 		wants_run = false
 		
 	if state == State.SLIDE:
-		if not is_on_floor():
+		if not is_on_floor() and energy > 10:
+			energy -= 10
 			state = State.FRONTJUMP
 			return
 		if abs(velocity.x) < 50:
-			state = State.IDLE
+			if can_exit_slide():
+				state = State.IDLE
 			return
 		return
 	
@@ -129,8 +133,9 @@ func update_state(input_direction):
 			return
 
 		if last_state == State.RUN:
-			state = State.FRONTJUMP
-		else:
+				state = State.FRONTJUMP
+				return
+		elif energy > 10:
 			state = State.JUMP
 
 		return
@@ -206,6 +211,23 @@ func update_collision():
 		colisao1.disabled = false
 		colisao2.disabled = true
 
+
+func can_exit_slide() -> bool:
+	if not is_on_floor():
+		return true
+
+	if colisao1 == null or colisao1.shape == null:
+		return true
+
+	var params := PhysicsShapeQueryParameters2D.new()
+	params.shape = colisao1.shape
+	params.transform = colisao1.global_transform
+	params.collision_mask = collision_mask
+	params.exclude = [self]
+
+	var hits := get_world_2d().direct_space_state.intersect_shape(params, 1)
+	return hits.is_empty()
+
 func update_camera():
 	var base = 80 if face == FACE.Right else -80
 	var look = velocity.x * 0.2
@@ -220,16 +242,14 @@ func update_energy(delta):
 		if energy + recharge > 100:
 			energy = 100
 		else:
-			energy += recharge
+			energy += int(recharge)
 		recharge = 0
 		return
 
-	if abs(velocity.x) > 100:
-		recharge += abs(velocity.x) * 0.1 * delta
-	else:
-		recharge = move_toward(recharge, 0, 50 * delta)
-		
-	energize()
+	if abs(velocity.x) > walk_speed:
+		recharge = move_toward(recharge, 1000, 1.5 * delta)
+	elif state != State.WALLGRAB:
+		recharge = move_toward(recharge, 0, 5 * delta)
 	
 
 func is_skidding(input_direction):
@@ -332,10 +352,3 @@ func soundize(delta):
 			
 		_:
 			pass
-
-func energize():
-	match state:
-		State.JUMP, State.FRONTJUMP:
-			if state_frames == 0 and energy > 0:
-				energy -= 10
-	

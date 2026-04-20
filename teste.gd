@@ -14,7 +14,7 @@ func _ready():
 func _process(delta):
 	gameplay_label.text = "ENERGY: %s\nRECHARGE: %s" % [
 		player.energy,
-		player.recharge
+		int(player.recharge)
 	]
 	debug_label.text = "STATE: %s\nSFX: %s\nVEL: %s\nSTORE.VEL: %s\nRUN: %s" % [
 		get_state_name(),
