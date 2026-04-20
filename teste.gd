@@ -3,20 +3,23 @@ extends Node2D
 @onready var player = $Personagem
 @onready var debug_label = $CanvasLayer/DebugLabel
 @onready var gameplay_label = $CanvasLayer/GameplayLabel
+
+@onready var area1 = $Area1
 @onready var musica = $MusicaDeFundo
 
 func _ready():
 	print("Level loaded")
 	get_tree().debug_collisions_hint = true
-	musica.stream = preload("res://SoundsAssets/sf3alex.mp3")
-	musica.play()
+	#musica.stream = preload("res://SoundsAssets/sf3alex.mp3")
+	#musica.play()
 	
-func _process(delta):
+func _process(_delta):
 	gameplay_label.text = "ENERGY: %s\nRECHARGE: %s" % [
-		player.energy,
+		int(player.energy),
 		int(player.recharge)
 	]
-	debug_label.text = "STATE: %s\nSFX: %s\nVEL: %s\nSTORE.VEL: %s\nRUN: %s" % [
+	debug_label.text = "BGM: %s\nSTATE: %s\nSFX: %s\nVEL: %s\nSTORE.VEL: %s\nRUN: %s" % [
+		get_bgm_name(),
 		get_state_name(),
 		get_sfx_name(),
 		player.velocity.x,
@@ -34,10 +37,17 @@ func get_state_name():
 		player.State.FRONTJUMP: return "FRONTJUMP"
 		player.State.WALLGRAB: return "WALLGRAB"
 		player.State.SLIDE: return "SLIDE"
+		player.State.PARRY: return "PARRY"
 	return "UNKNOWN"
 	
 func get_sfx_name():
 	var stream = player.sfx.stream
+	if stream == null:
+		return "NONE"
+	return stream.resource_path.get_file()
+	
+func get_bgm_name():
+	var stream = musica.stream
 	if stream == null:
 		return "NONE"
 	return stream.resource_path.get_file()

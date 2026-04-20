@@ -8,14 +8,17 @@ extends CharacterBody2D
 @export var acceleration := 200.0 #aceleração
 @export var ground_friction := 400.0 #fricção de movimento
 @export var skid_friction := 900.0 #fricção de freio
+@export var parry_duration := 0.25 #janela de parry em segundos
 
 @export var camera_offset_x := 100
 
-@onready var sprite = $Sprites
-@onready var sfx = $SFX
-@onready var camera = $Camera
-@onready var colisao1 = $DePe
-@onready var colisao2 = $Agachado
+@onready var sprite = $mc_Sprites
+@onready var sfx = $mc_SFX
+@onready var camera = $mc_Camera
+
+@onready var caixape = $mc_DPe
+@onready var caixaagch = $mc_Agch
+@onready var caixaprry = $mc_Prry
 
 @export var wants_run = false #trava de corrida do personagem
 
@@ -27,7 +30,11 @@ enum State { #estados que o personagem pode estar, relevante para sprites
 	JUMP,
 	FRONTJUMP,
 	WALLGRAB,
-	SLIDE
+	SLIDE,
+	PARRY
+	#FALL,
+	#HURT,
+	#DEATH
 }
 
 enum FACE {
@@ -35,28 +42,36 @@ enum FACE {
 	Left
 }
 
-var pulo_sfx = preload("res://SoundsAssets/pulo.wav")
-var pegada_sfx = preload("res://SoundsAssets/pegada.wav")
-var freio_sfx = preload("res://SoundsAssets/freio(sonic).wav")
-
 @export var state = State.IDLE #estado atual do personagem
-var last_state = state #último estado do personagem
+var last_state := [State.IDLE, State.IDLE] # [0] ultimo estado (pode ser o mesmo que o atual), [1] estado anterior (não pode ser o mesmo que o atual)
 var state_frames := 0 #há quanto tempo está no mesmo state
 
 var turn_lock_time := 0.0 #trava de movimento
+var parry_time_left := 0.0 #trava de parry
+
 var stored_velocity := 0 #velocidade guardada, relevante pra momentum
-var recharge := 0.0
-var energy := 100
 
-var step_timer := 0 #para pegadas
+var recharge := 0.0 #variável de recarga
+var energy := 100.0 #variável de energia
 
-var face = FACE.Right
+var face = FACE.Right #Personagem inicia olhando para o lado direito
+var caixape_base_pos := Vector2.ZERO 
+var caixaagch_base_pos := Vector2.ZERO
+var caixaprry_base_pos := Vector2.ZERO
+var collision_flip_pivot_x := 0.0 #para guardar posições das caixas de colisão
+
+func _ready(): 
+	caixape_base_pos = caixape.position
+	caixaagch_base_pos = caixaagch.position
+	caixaprry_base_pos = caixaprry.position
+	collision_flip_pivot_x = sprite.position.x
+	update_face(0) #guardar posição inicial das caixas de colisão
 
 func _physics_process(delta):
 	var input_direction := Input.get_axis("left", "right")
 
 	get_input()
-	update_state(input_direction)
+	update_state(input_direction, delta)
 	update_collision()
 
 	if turn_lock_time > 0:
@@ -70,27 +85,39 @@ func _physics_process(delta):
 	move_and_slide()
 	animate()
 		
-	if state == last_state:
+	if state == last_state[0]:
 		state_frames += 1
 	else:
 		state_frames = 0
-		
-	last_state = state
+		last_state[1] = last_state[0]
+		last_state[0] = state
 	
-	soundize(delta)
+	sfx.soundize(state, state_frames, delta)
 
 
 func get_input():
+	if Input.is_action_just_pressed("debug_1"):
+		energy = 100
+	
+	if Input.is_action_just_pressed("b_button") and energy >= 10:
+		state = State.PARRY
+		parry_time_left = parry_duration
+		energy -= 10
+		return
+
+	if state == State.PARRY:
+		return
+	
 	if Input.is_action_just_pressed("a_button"): #gatilho de corrida
 		if state == State.SLIDE and can_exit_slide():
-			state = State.RUN
+			state = State.RUN #sair de um slide para uma corrida
 		wants_run = true
 		
 	if Input.is_action_pressed("down") and state == State.RUN:
 		state = State.SLIDE
 		turn_lock_time = 0.3
 
-	if Input.is_action_just_pressed("up") and is_on_floor() and energy>10: #pulo
+	if Input.is_action_just_pressed("up") and is_on_floor() and energy >= 10: #pulo
 		if state == State.SLIDE and not can_exit_slide():
 			return
 		if state == State.RUN or state == State.SLIDE:
@@ -101,9 +128,17 @@ func get_input():
 		velocity.y = jump_speed
 
 
-func update_state(input_direction):
-	if is_skidding(input_direction): #desativa corrida se freiar
-		wants_run = false
+func update_state(input_direction, delta):
+	#if is_skidding(input_direction): #desativa corrida se freiar
+		#wants_run = false
+
+	if state == State.PARRY:
+		parry_time_left = max(parry_time_left - delta, 0.0)
+		if parry_time_left > 0.0:
+			caixaprry.disabled = false
+			return
+		caixaprry.disabled = true
+		state = State.IDLE
 		
 	if state == State.SLIDE:
 		if not is_on_floor() and energy > 10:
@@ -132,7 +167,7 @@ func update_state(input_direction):
 			stored_velocity = abs(velocity.x)
 			return
 
-		if last_state == State.RUN:
+		if last_state[0] == State.RUN:
 				state = State.FRONTJUMP
 				return
 		elif energy > 10:
@@ -203,30 +238,27 @@ func update_face(_input_direction):
 			
 	sprite.flip_h = (face == FACE.Left)
 
-func update_collision():
-	if state == State.SLIDE:
-		colisao1.disabled = true
-		colisao2.disabled = false
+	if face == FACE.Right:
+		caixape.position.x = caixape_base_pos.x
+		caixaagch.position.x = caixaagch_base_pos.x
+		caixaprry.position.x = caixaprry_base_pos.x
 	else:
-		colisao1.disabled = false
-		colisao2.disabled = true
+		caixape.position.x = (2.0 * collision_flip_pivot_x) - caixape_base_pos.x
+		caixaagch.position.x = (2.0 * collision_flip_pivot_x) - caixaagch_base_pos.x
+		caixaprry.position.x = (2.0 * collision_flip_pivot_x) - caixaprry_base_pos.x
 
-
-func can_exit_slide() -> bool:
-	if not is_on_floor():
-		return true
-
-	if colisao1 == null or colisao1.shape == null:
-		return true
-
-	var params := PhysicsShapeQueryParameters2D.new()
-	params.shape = colisao1.shape
-	params.transform = colisao1.global_transform
-	params.collision_mask = collision_mask
-	params.exclude = [self]
-
-	var hits := get_world_2d().direct_space_state.intersect_shape(params, 1)
-	return hits.is_empty()
+func update_collision():
+	#if state == State.PARRY:
+		#caixaprry.disabled = false
+	#else:
+		#caixaprry.disabled = true
+	
+	if state == State.SLIDE:
+		caixape.disabled = true
+		caixaagch.disabled = false
+	else:
+		caixape.disabled = false
+		caixaagch.disabled = true
 
 func update_camera():
 	var base = 80 if face == FACE.Right else -80
@@ -238,11 +270,11 @@ func update_camera():
 		camera.offset.x = lerp(camera.offset.x, target, 0.1)
 		
 func update_energy(delta):
+	if energy > 100:
+		energy = move_toward(energy, 100, 1 * delta)
+	
 	if state == State.SKID and state_frames == 0:
-		if energy + recharge > 100:
-			energy = 100
-		else:
-			energy += int(recharge)
+		energy += int(recharge)
 		recharge = 0
 		return
 
@@ -251,6 +283,21 @@ func update_energy(delta):
 	elif state != State.WALLGRAB:
 		recharge = move_toward(recharge, 0, 5 * delta)
 	
+func can_exit_slide() -> bool:
+	if not is_on_floor():
+		return true
+
+	if caixape == null or caixape.shape == null:
+		return true
+
+	var params := PhysicsShapeQueryParameters2D.new()
+	params.shape = caixape.shape
+	params.transform = caixape.global_transform
+	params.collision_mask = collision_mask
+	params.exclude = [self]
+
+	var hits := get_world_2d().direct_space_state.intersect_shape(params, 1)
+	return hits.is_empty()
 
 func is_skidding(input_direction):
 	if is_on_floor():
@@ -269,7 +316,7 @@ func do_wall_jump():
 	velocity.y = jump_speed
 
 	state = State.FRONTJUMP
-	last_state = State.RUN
+	last_state[0] = State.RUN
 	sprite.flip_h = wall_dir < 0
 	turn_lock_time = 0.2
 
@@ -288,8 +335,8 @@ func animate():
 				sprite.play("WallGrab")
 
 		State.SKID:
-			if sprite.animation != "Stop":
-				sprite.play("Stop")
+			if sprite.animation != "Skid":
+				sprite.play("Skid")
 				
 		State.SLIDE:
 			if sprite.animation != "Slide":
@@ -302,53 +349,12 @@ func animate():
 		State.WALK:
 			if sprite.animation != "Walk":
 				sprite.play("Walk")
+				
+		State.PARRY:
+			if sprite.animation != "Parry":
+				sprite.play("Parry")
 
 		State.IDLE:
 			wants_run=false
 			if sprite.animation != "Idle":
 				sprite.play("Idle")
-
-func soundize(delta):		
-	match state:
-		State.JUMP:
-			if state_frames == 0:
-				sfx.stream = pulo_sfx
-				sfx.play()
-				
-		State.FRONTJUMP:
-			if state_frames == 0:
-				sfx.stream = pulo_sfx
-				sfx.play()
-				
-		State.WALLGRAB:
-			pass
-
-		State.SKID:
-			if state_frames == 7:
-				sfx.stream = freio_sfx
-				sfx.play()
-				
-		State.SLIDE:
-			if state_frames == 7:
-				sfx.stream = freio_sfx
-				sfx.play()
-
-		State.RUN:
-			step_timer -= delta
-			if step_timer <= 0:
-				sfx.stream = pegada_sfx
-				sfx.play()
-				step_timer = 20
-
-		State.WALK:
-			step_timer -= delta
-			if step_timer <= 0:
-				sfx.stream = pegada_sfx
-				sfx.play()
-				step_timer = 30
-
-		State.IDLE:
-			pass
-			
-		_:
-			pass
