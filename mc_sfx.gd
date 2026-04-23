@@ -9,10 +9,14 @@ enum State { #estados que o personagem pode estar, relevante para sprites
 	FRONTJUMP,
 	WALLGRAB,
 	SLIDE,
-	PARRY
+	PARRY,
 	#FALL,
 	#HURT,
 	#DEATH
+}
+
+enum Second {
+	THUD
 }
 
 var pulo_sfx = preload("res://SoundsAssets/pulo.wav")
@@ -21,7 +25,15 @@ var freio_sfx = preload("res://SoundsAssets/freio(sonic).wav")
 var parrywhiff_sfx = preload("res://SoundsAssets/parrywhiff(emerald_00A2).wav")
 var parryhit_sfx = preload("res://SoundsAssets/parryhit(emerald_00AF).wav")
 
+var thud_sfx = preload("res://SoundsAssets/thudparede(pokemon).wav")
+
 var step_timer := 0
+
+func sfxize(second):
+	match second:
+		Second.THUD:
+			stream = thud_sfx
+			play()
 
 func soundize(state, state_frames, delta):
 	match state:

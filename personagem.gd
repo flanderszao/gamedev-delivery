@@ -2,15 +2,16 @@ extends CharacterBody2D
 
 @export var walk_speed := 100 #velocidade máxima de caminhada
 @export var run_speed := 600 #velocidade máxima de corrida
-@export var jump_speed := -600.0 #velocidade de pulo
-@export var gravity := 2500.0
-
 @export var acceleration := 200.0 #aceleração
 @export var ground_friction := 400.0 #fricção de movimento
 @export var skid_friction := 900.0 #fricção de freio
+
+@export var jump_speed := -600.0 #velocidade de pulo
+@export var gravity := 2500.0 #gravidade
+
 @export var parry_duration := 0.25 #janela de parry em segundos
 
-@export var camera_offset_x := 100
+@export var camera_offset_x := 100 #distância da câmera para frente
 
 @onready var sprite = $mc_Sprites
 @onready var sfx = $mc_SFX
@@ -19,8 +20,6 @@ extends CharacterBody2D
 @onready var caixape = $mc_DPe
 @onready var caixaagch = $mc_Agch
 @onready var caixaprry = $mc_Prry
-
-@export var wants_run = false #trava de corrida do personagem
 
 enum State { #estados que o personagem pode estar, relevante para sprites
 	IDLE,
@@ -31,10 +30,14 @@ enum State { #estados que o personagem pode estar, relevante para sprites
 	FRONTJUMP,
 	WALLGRAB,
 	SLIDE,
-	PARRY
+	PARRY,
 	#FALL,
 	#HURT,
 	#DEATH
+}
+
+enum Second {
+	THUD
 }
 
 enum FACE {
@@ -46,6 +49,8 @@ enum FACE {
 var last_state := [State.IDLE, State.IDLE] # [0] ultimo estado (pode ser o mesmo que o atual), [1] estado anterior (não pode ser o mesmo que o atual)
 var state_frames := 0 #há quanto tempo está no mesmo state
 
+var wants_run = false #trava de corrida do personagem
+
 var turn_lock_time := 0.0 #trava de movimento
 var parry_time_left := 0.0 #trava de parry
 
@@ -55,9 +60,10 @@ var recharge := 0.0 #variável de recarga
 var energy := 100.0 #variável de energia
 
 var face = FACE.Right #Personagem inicia olhando para o lado direito
-var caixape_base_pos := Vector2.ZERO 
-var caixaagch_base_pos := Vector2.ZERO
-var caixaprry_base_pos := Vector2.ZERO
+
+var caixape_base_pos := Vector2.ZERO #para guardar posições das caixas de colisão
+var caixaagch_base_pos := Vector2.ZERO #para guardar posições das caixas de colisão
+var caixaprry_base_pos := Vector2.ZERO #para guardar posições das caixas de colisão
 var collision_flip_pivot_x := 0.0 #para guardar posições das caixas de colisão
 
 func _ready(): 
@@ -69,6 +75,7 @@ func _ready():
 
 func _physics_process(delta):
 	var input_direction := Input.get_axis("left", "right")
+	var impact_velocity_x := velocity.x
 
 	get_input()
 	update_state(input_direction, delta)
@@ -83,7 +90,7 @@ func _physics_process(delta):
 	update_energy(delta)
 
 	move_and_slide()
-	animate()
+	sprite.animate(state)
 		
 	if state == last_state[0]:
 		state_frames += 1
@@ -91,6 +98,9 @@ func _physics_process(delta):
 		state_frames = 0
 		last_state[1] = last_state[0]
 		last_state[0] = state
+		
+	if (abs(impact_velocity_x) > 300) and is_on_wall() and is_on_floor():
+		sfx.sfxize(Second.THUD) #MUDAR QUANDO THUD MUDAR
 	
 	sfx.soundize(state, state_frames, delta)
 
@@ -99,10 +109,9 @@ func get_input():
 	if Input.is_action_just_pressed("debug_1"):
 		energy = 100
 	
-	if Input.is_action_just_pressed("b_button") and energy >= 10:
+	if Input.is_action_just_pressed("b_button") and do_action(State.PARRY):
 		state = State.PARRY
 		parry_time_left = parry_duration
-		energy -= 10
 		return
 
 	if state == State.PARRY:
@@ -117,22 +126,21 @@ func get_input():
 		state = State.SLIDE
 		turn_lock_time = 0.3
 
-	if Input.is_action_just_pressed("up") and is_on_floor() and energy >= 10: #pulo
+	if Input.is_action_just_pressed("up") and is_on_floor() and (do_action(State.JUMP) or do_action(State.FRONTJUMP)): #pulo
 		if state == State.SLIDE and not can_exit_slide():
 			return
 		if state == State.RUN or state == State.SLIDE:
 			state = State.FRONTJUMP
 		else:
 			state = State.JUMP
-		energy -= 10 #diminui energia ao pular
 		velocity.y = jump_speed
 
 
 func update_state(input_direction, delta):
-	#if is_skidding(input_direction): #desativa corrida se freiar
-		#wants_run = false
+	if is_skidding(input_direction): #desativa corrida se freiar
+		wants_run = false
 
-	if state == State.PARRY:
+	if state == State.PARRY and do_action(State.PARRY): #FEITO POR IA --- REVISAR
 		parry_time_left = max(parry_time_left - delta, 0.0)
 		if parry_time_left > 0.0:
 			caixaprry.disabled = false
@@ -141,8 +149,7 @@ func update_state(input_direction, delta):
 		state = State.IDLE
 		
 	if state == State.SLIDE:
-		if not is_on_floor() and energy > 10:
-			energy -= 10
+		if not is_on_floor() and do_action(State.FRONTJUMP):
 			state = State.FRONTJUMP
 			return
 		if abs(velocity.x) < 50:
@@ -170,7 +177,7 @@ func update_state(input_direction, delta):
 		if last_state[0] == State.RUN:
 				state = State.FRONTJUMP
 				return
-		elif energy > 10:
+		else:
 			state = State.JUMP
 
 		return
@@ -183,6 +190,7 @@ func update_state(input_direction, delta):
 
 	if abs(velocity.x) < 25:
 		state = State.IDLE
+		wants_run = false
 		return
 
 	if abs(velocity.x) > 300:
@@ -247,12 +255,7 @@ func update_face(_input_direction):
 		caixaagch.position.x = (2.0 * collision_flip_pivot_x) - caixaagch_base_pos.x
 		caixaprry.position.x = (2.0 * collision_flip_pivot_x) - caixaprry_base_pos.x
 
-func update_collision():
-	#if state == State.PARRY:
-		#caixaprry.disabled = false
-	#else:
-		#caixaprry.disabled = true
-	
+func update_collision(): #FEITO POR IA ---- REVISAR	
 	if state == State.SLIDE:
 		caixape.disabled = true
 		caixaagch.disabled = false
@@ -260,7 +263,7 @@ func update_collision():
 		caixape.disabled = false
 		caixaagch.disabled = true
 
-func update_camera():
+func update_camera(): #FEITO COM IA ---- REVISAR
 	var base = 80 if face == FACE.Right else -80
 	var look = velocity.x * 0.2
 	
@@ -270,20 +273,64 @@ func update_camera():
 		camera.offset.x = lerp(camera.offset.x, target, 0.1)
 		
 func update_energy(delta):
-	if energy > 100:
+	if energy > 100: #lidar com over-charge (é uma mecânica)
 		energy = move_toward(energy, 100, 1 * delta)
 	
-	if state == State.SKID and state_frames == 0:
+	if state == State.SKID and state_frames == 0: #recarregar energia
 		energy += int(recharge)
 		recharge = 0
 		return
 
-	if abs(velocity.x) > walk_speed:
-		recharge = move_toward(recharge, 1000, 1.5 * delta)
+	if abs(velocity.x) > walk_speed: #Talvez mudar a formúla de decay
+		if recharge < 10:
+			recharge = move_toward(recharge, 100, 3 * delta)
+		elif recharge < 30:
+			recharge = move_toward(recharge, 100, 2 * delta)
+		else:
+			recharge = move_toward(recharge, 100, 1.5 * delta)
 	elif state != State.WALLGRAB:
 		recharge = move_toward(recharge, 0, 5 * delta)
+
+func do_wall_jump(): #FEITO POR IA ---- REVISAR
+	var wall_dir = get_wall_normal().x
+
+	velocity.x = wall_dir * stored_velocity
+	velocity.y = jump_speed
+
+	state = State.FRONTJUMP
+	last_state[0] = State.RUN
+	sprite.flip_h = wall_dir < 0
+	turn_lock_time = 0.2
 	
-func can_exit_slide() -> bool:
+func do_action(state) -> bool:
+	if energy <= 100:
+		match state:
+			State.PARRY:
+				if energy >= 10:
+					energy -= 10
+					return true
+				else:
+					return false
+			State.JUMP:
+				if energy >= 10:
+					energy -= 10
+					return true
+				else:
+					return false
+			State.FRONTJUMP:
+				if energy >= 10:
+					energy -= 10
+					return true
+				else:
+					return false
+			_:
+				return false
+	elif energy > 100:
+		return true
+	else:
+		return false
+	
+func can_exit_slide() -> bool: #FEITO POR IA ---- REVISAR
 	if not is_on_floor():
 		return true
 
@@ -298,8 +345,8 @@ func can_exit_slide() -> bool:
 
 	var hits := get_world_2d().direct_space_state.intersect_shape(params, 1)
 	return hits.is_empty()
-
-func is_skidding(input_direction):
+	
+func is_skidding(input_direction): #FEITO POR IA ---- REVISAR
 	if is_on_floor():
 		if input_direction == 0:
 			return false
@@ -308,53 +355,3 @@ func is_skidding(input_direction):
 			return false
 
 		return sign(input_direction) != sign(velocity.x)
-
-func do_wall_jump():
-	var wall_dir = get_wall_normal().x
-
-	velocity.x = wall_dir * stored_velocity
-	velocity.y = jump_speed
-
-	state = State.FRONTJUMP
-	last_state[0] = State.RUN
-	sprite.flip_h = wall_dir < 0
-	turn_lock_time = 0.2
-
-func animate():
-	match state:
-		State.JUMP:
-			if sprite.animation != "Jump":
-				sprite.play("Jump")
-				
-		State.FRONTJUMP:
-			if sprite.animation != "FrontJump":
-				sprite.play("FrontJump")
-				
-		State.WALLGRAB:
-			if sprite.animation != "WallGrab":
-				sprite.play("WallGrab")
-
-		State.SKID:
-			if sprite.animation != "Skid":
-				sprite.play("Skid")
-				
-		State.SLIDE:
-			if sprite.animation != "Slide":
-				sprite.play("Slide")
-
-		State.RUN:
-			if sprite.animation != "Run":
-				sprite.play("Run")
-
-		State.WALK:
-			if sprite.animation != "Walk":
-				sprite.play("Walk")
-				
-		State.PARRY:
-			if sprite.animation != "Parry":
-				sprite.play("Parry")
-
-		State.IDLE:
-			wants_run=false
-			if sprite.animation != "Idle":
-				sprite.play("Idle")

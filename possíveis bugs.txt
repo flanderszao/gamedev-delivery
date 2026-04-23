@@ -1,0 +1,1 @@
+Parry no ar troca de estado subitamente quando chega ao chão, podendo travar a caixa de colisão
