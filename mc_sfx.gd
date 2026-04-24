@@ -16,24 +16,22 @@ enum State { #estados que o personagem pode estar, relevante para sprites
 }
 
 enum Second {
-	THUD
+	THUD,
+	#CHARGE,
+	#PARRYHIT
 }
 
+#Sons do soundize
 var pulo_sfx = preload("res://SoundsAssets/pulo.wav")
 var pegada_sfx = preload("res://SoundsAssets/pegada.wav")
 var freio_sfx = preload("res://SoundsAssets/freio(sonic).wav")
-var parrywhiff_sfx = preload("res://SoundsAssets/parrywhiff(emerald_00A2).wav")
+var parry_sfx = preload("res://SoundsAssets/parry(emerald_00A2).wav")
+
+#Sons do secondize
+var thud_sfx = preload("res://SoundsAssets/thudparede(pokemon).wav")
 var parryhit_sfx = preload("res://SoundsAssets/parryhit(emerald_00AF).wav")
 
-var thud_sfx = preload("res://SoundsAssets/thudparede(pokemon).wav")
-
 var step_timer := 0
-
-func sfxize(second):
-	match second:
-		Second.THUD:
-			stream = thud_sfx
-			play()
 
 func soundize(state, state_frames, delta):
 	match state:
@@ -53,7 +51,7 @@ func soundize(state, state_frames, delta):
 				play()
 
 		State.SLIDE:
-			if state_frames == 7:
+			if state_frames == 2:
 				stream = freio_sfx
 				play()
 
@@ -73,8 +71,20 @@ func soundize(state, state_frames, delta):
 
 		State.PARRY:
 			if state_frames == 0:
-				stream = parrywhiff_sfx
+				stream = parry_sfx
 				play()
 
+		_:
+			pass
+
+func secondize(second):
+	match second:
+		Second.THUD:
+			stream = thud_sfx
+			play()
+			
+		#Second.PARRYHIT:
+			#stream = parryhit_sfx
+			#play()
 		_:
 			pass

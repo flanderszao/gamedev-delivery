@@ -2,6 +2,7 @@ extends Node2D
 
 @onready var player = $Personagem
 @onready var debug_label = $CanvasLayer/DebugLabel
+@onready var debug_label2 = $CanvasLayer/DebugLabel2
 @onready var gameplay_label = $CanvasLayer/GameplayLabel
 
 @onready var area1 = $Area1
@@ -27,6 +28,7 @@ func _process(_delta):
 		player.stored_velocity,
 		player.wants_run
 	]
+	debug_label2.text = "Press 1 for full energy\nPress 2 to add 10 energy"
 	
 func get_state_name():
 	match player.state:

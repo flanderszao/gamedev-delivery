@@ -9,6 +9,11 @@ extends CharacterBody2D
 @export var jump_speed := -600.0 #velocidade de pulo
 @export var gravity := 2500.0 #gravidade
 
+@export var energy := 100.0 #variável de energia
+@export var parry_cost := 10
+@export var jump_cost := 10
+@export var frontjump_cost := 10
+
 @export var parry_duration := 0.25 #janela de parry em segundos
 
 @export var camera_offset_x := 100 #distância da câmera para frente
@@ -37,7 +42,9 @@ enum State { #estados que o personagem pode estar, relevante para sprites
 }
 
 enum Second {
-	THUD
+	THUD,
+	#CHARGE,
+	#PARRYHIT
 }
 
 enum FACE {
@@ -57,7 +64,6 @@ var parry_time_left := 0.0 #trava de parry
 var stored_velocity := 0 #velocidade guardada, relevante pra momentum
 
 var recharge := 0.0 #variável de recarga
-var energy := 100.0 #variável de energia
 
 var face = FACE.Right #Personagem inicia olhando para o lado direito
 
@@ -99,15 +105,19 @@ func _physics_process(delta):
 		last_state[1] = last_state[0]
 		last_state[0] = state
 		
-	if (abs(impact_velocity_x) > 300) and is_on_wall() and is_on_floor():
-		sfx.sfxize(Second.THUD) #MUDAR QUANDO THUD MUDAR
-	
 	sfx.soundize(state, state_frames, delta)
+		
+		#PROVAVELMENTE MUDAR A LÓGICA DO THUD!!!
+	if (abs(impact_velocity_x) > 300) and is_on_wall() and is_on_floor():
+		sfx.secondize(Second.THUD) #MUDAR QUANDO THUD MUDAR
 
 
 func get_input():
 	if Input.is_action_just_pressed("debug_1"):
 		energy = 100
+		
+	if Input.is_action_just_pressed("debug_2"):
+		energy += 10
 	
 	if Input.is_action_just_pressed("b_button") and do_action(State.PARRY):
 		state = State.PARRY
@@ -140,13 +150,13 @@ func update_state(input_direction, delta):
 	if is_skidding(input_direction): #desativa corrida se freiar
 		wants_run = false
 
-	if state == State.PARRY and do_action(State.PARRY): #FEITO POR IA --- REVISAR
+	if state == State.PARRY: #FEITO POR IA --- REVISAR
 		parry_time_left = max(parry_time_left - delta, 0.0)
 		if parry_time_left > 0.0:
 			caixaprry.disabled = false
 			return
 		caixaprry.disabled = true
-		state = State.IDLE
+		state = last_state[1]
 		
 	if state == State.SLIDE:
 		if not is_on_floor() and do_action(State.FRONTJUMP):
@@ -218,9 +228,25 @@ func update_movement(input_direction, delta):
 		return
 
 	if input_direction != 0:
+		var speed_mult := 1.0
+
+		if is_on_floor(): #FEITO POR IA ---- REVISAR
+			var floor_x := float(get_floor_normal().x)
+			var steep := float(abs(floor_x))
+			var slope_sign := float(input_direction * floor_x)
+
+			if slope_sign < 0: # uphill
+				speed_mult -= 0.45 * steep
+			elif slope_sign > 0: # downhill
+				speed_mult += 0.25 * steep
+
+		#Estou entre a ideia de mudar ou velocidade limite
+		#Ou aceleração ao subir/descer rampas
+		#(SIMPLESMENTE MUDAR POSIÇÃO DO SPEED_MULT ENTRE
+		#O SEGUNDO OU TERCEIRO ARGUMENTO
 		velocity.x = move_toward(
 			velocity.x,
-			input_direction * target_speed,
+			input_direction * target_speed * speed_mult,
 			acceleration * delta
 		)
 	else:
@@ -274,7 +300,7 @@ func update_camera(): #FEITO COM IA ---- REVISAR
 		
 func update_energy(delta):
 	if energy > 100: #lidar com over-charge (é uma mecânica)
-		energy = move_toward(energy, 100, 1 * delta)
+		energy = move_toward(energy, 100, 3 * delta)
 	
 	if state == State.SKID and state_frames == 0: #recarregar energia
 		energy += int(recharge)
@@ -305,21 +331,21 @@ func do_wall_jump(): #FEITO POR IA ---- REVISAR
 func do_action(state) -> bool:
 	if energy <= 100:
 		match state:
-			State.PARRY:
+			State.PARRY: #Declarado separado caso eu queira fazer algo com isso depois
 				if energy >= 10:
-					energy -= 10
+					energy -= parry_cost
 					return true
 				else:
 					return false
-			State.JUMP:
+			State.JUMP: #Declarado separado caso eu queira fazer algo com isso depois
 				if energy >= 10:
-					energy -= 10
+					energy -= jump_cost
 					return true
 				else:
 					return false
 			State.FRONTJUMP:
 				if energy >= 10:
-					energy -= 10
+					energy -= frontjump_cost
 					return true
 				else:
 					return false
