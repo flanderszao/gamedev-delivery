@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://c170ngdo3ucaq"
-path="res://.godot/imported/freio(sonic).wav-33432a3890c5271ff8df323090c9ad32.sample"
+path="res://.godot/imported/freio(sonic).wav-21213c8718dcf57ce59bb64f3cc54d4b.sample"
 
 [deps]
 
-source_file="res://soundsAssets/freio(sonic).wav"
-dest_files=["res://.godot/imported/freio(sonic).wav-33432a3890c5271ff8df323090c9ad32.sample"]
+source_file="res://SoundsAssets/freio(sonic).wav"
+dest_files=["res://.godot/imported/freio(sonic).wav-21213c8718dcf57ce59bb64f3cc54d4b.sample"]
 
 [params]
 

@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bfbq26ikxg2dk"
-path="res://.godot/imported/GandalfHardcore city tiles slope.png-b6873e44c18bb319757df9c20d8a74d1.ctex"
+path="res://.godot/imported/GandalfHardcore city tiles slope.png-8ae93f68b8285e9ad916aadce3216f62.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://tiles/GandalfHardcore City Tiles/GandalfHardcore city tiles slope.png"
-dest_files=["res://.godot/imported/GandalfHardcore city tiles slope.png-b6873e44c18bb319757df9c20d8a74d1.ctex"]
+source_file="res://Tiles/GandalfHardcore City Tiles/GandalfHardcore city tiles slope.png"
+dest_files=["res://.godot/imported/GandalfHardcore city tiles slope.png-8ae93f68b8285e9ad916aadce3216f62.ctex"]
 
 [params]
 

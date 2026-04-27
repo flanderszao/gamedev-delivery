@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bsrfuokfu1y15"
-path="res://.godot/imported/City background.png-e80189770499d333cc2e53146264fd97.ctex"
+path="res://.godot/imported/City background.png-87b981eae4932d562e629b7f0dec5f53.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://tiles/GandalfHardcore City Tiles/City background.png"
-dest_files=["res://.godot/imported/City background.png-e80189770499d333cc2e53146264fd97.ctex"]
+source_file="res://Tiles/GandalfHardcore City Tiles/City background.png"
+dest_files=["res://.godot/imported/City background.png-87b981eae4932d562e629b7f0dec5f53.ctex"]
 
 [params]
 

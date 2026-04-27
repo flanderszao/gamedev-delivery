@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://jxifpj5msxeg"
-path="res://.godot/imported/thudparede(pokemon).wav-11d295e8ac8369a762285c1e52f475ec.sample"
+path="res://.godot/imported/thudparede(pokemon).wav-a21bed4ebdb5d3f8a0ebf8c44c430b35.sample"
 
 [deps]
 
-source_file="res://soundsAssets/thudparede(pokemon).wav"
-dest_files=["res://.godot/imported/thudparede(pokemon).wav-11d295e8ac8369a762285c1e52f475ec.sample"]
+source_file="res://SoundsAssets/thudparede(pokemon).wav"
+dest_files=["res://.godot/imported/thudparede(pokemon).wav-a21bed4ebdb5d3f8a0ebf8c44c430b35.sample"]
 
 [params]
 

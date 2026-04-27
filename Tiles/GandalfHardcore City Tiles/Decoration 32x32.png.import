@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://csjmeyeuvipco"
-path="res://.godot/imported/Decoration 32x32.png-ab9128db5ef53d83cd78a272d001f4af.ctex"
+path="res://.godot/imported/Decoration 32x32.png-12cee7597f40cbdc9d0f6fee0c43cd14.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://tiles/GandalfHardcore City Tiles/Decoration 32x32.png"
-dest_files=["res://.godot/imported/Decoration 32x32.png-ab9128db5ef53d83cd78a272d001f4af.ctex"]
+source_file="res://Tiles/GandalfHardcore City Tiles/Decoration 32x32.png"
+dest_files=["res://.godot/imported/Decoration 32x32.png-12cee7597f40cbdc9d0f6fee0c43cd14.ctex"]
 
 [params]
 

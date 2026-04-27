@@ -165,6 +165,8 @@ func update_state(input_direction, delta):
 		if abs(velocity.x) < 50:
 			if can_exit_slide():
 				state = State.IDLE
+			else:
+				velocity.x = 50
 			return
 		return
 	

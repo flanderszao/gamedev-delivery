@@ -5,8 +5,8 @@ extends Node2D
 @onready var debug_label2 = $CanvasLayer/DebugLabel2
 @onready var gameplay_label = $CanvasLayer/GameplayLabel
 
-@onready var area1 = $Area1
-#@onready var musica = $MusicaDeFundo
+@onready var area1 = $Debug_Area
+@onready var musica = $MusicaDeFundo
 
 func _ready():
 	print("Level loaded")

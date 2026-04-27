@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://xq8031xw3sd1"
-path="res://.godot/imported/parryhit(emerald_00AF).wav-07d00dc4bf4906b6715035009e6780c3.sample"
+path="res://.godot/imported/parryhit(emerald_00AF).wav-b7bc99562f840de7d58ab96cf460c174.sample"
 
 [deps]
 
-source_file="res://soundsAssets/parryhit(emerald_00AF).wav"
-dest_files=["res://.godot/imported/parryhit(emerald_00AF).wav-07d00dc4bf4906b6715035009e6780c3.sample"]
+source_file="res://SoundsAssets/parryhit(emerald_00AF).wav"
+dest_files=["res://.godot/imported/parryhit(emerald_00AF).wav-b7bc99562f840de7d58ab96cf460c174.sample"]
 
 [params]
 

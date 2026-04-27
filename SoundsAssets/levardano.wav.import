@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://cv4y2f7mp3674"
-path="res://.godot/imported/levardano.wav-0f5584e70809ff3c816d5de772f9d731.sample"
+path="res://.godot/imported/levardano.wav-c31f8c1bf5c07e31278f9669f48125ea.sample"
 
 [deps]
 
-source_file="res://soundsAssets/levardano.wav"
-dest_files=["res://.godot/imported/levardano.wav-0f5584e70809ff3c816d5de772f9d731.sample"]
+source_file="res://SoundsAssets/levardano.wav"
+dest_files=["res://.godot/imported/levardano.wav-c31f8c1bf5c07e31278f9669f48125ea.sample"]
 
 [params]
 

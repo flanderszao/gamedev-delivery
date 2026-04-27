@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://fvuxcyo53ylh"
-path="res://.godot/imported/GandalfHardcore city tiles 32x32.png-5c77c323bedd3444b7e6badfce3f34c1.ctex"
+path="res://.godot/imported/GandalfHardcore city tiles 32x32.png-379ee250b689cc409badd7d193fbb35b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://tiles/GandalfHardcore City Tiles/GandalfHardcore city tiles 32x32.png"
-dest_files=["res://.godot/imported/GandalfHardcore city tiles 32x32.png-5c77c323bedd3444b7e6badfce3f34c1.ctex"]
+source_file="res://Tiles/GandalfHardcore City Tiles/GandalfHardcore city tiles 32x32.png"
+dest_files=["res://.godot/imported/GandalfHardcore city tiles 32x32.png-379ee250b689cc409badd7d193fbb35b.ctex"]
 
 [params]
 

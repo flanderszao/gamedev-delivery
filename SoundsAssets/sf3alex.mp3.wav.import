@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://meqndhl3heeg"
-path="res://.godot/imported/sf3alex.mp3.wav-bbfd3ad67e4325155a39be82caedf417.sample"
+path="res://.godot/imported/sf3alex.mp3.wav-2139f62b35007b0fd49dd8685918c2f7.sample"
 
 [deps]
 
-source_file="res://soundsAssets/sf3alex.mp3.wav"
-dest_files=["res://.godot/imported/sf3alex.mp3.wav-bbfd3ad67e4325155a39be82caedf417.sample"]
+source_file="res://SoundsAssets/sf3alex.mp3.wav"
+dest_files=["res://.godot/imported/sf3alex.mp3.wav-2139f62b35007b0fd49dd8685918c2f7.sample"]
 
 [params]
 
