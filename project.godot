@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Delivery"
-run/main_scene="uid://c53fa2iyl1fqp"
+run/main_scene="uid://e22ryl1um6ap"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://icon.svg"
 
@@ -69,3 +69,5 @@ debug_2={
 [rendering]
 
 rendering_device/driver.windows="d3d12"
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"

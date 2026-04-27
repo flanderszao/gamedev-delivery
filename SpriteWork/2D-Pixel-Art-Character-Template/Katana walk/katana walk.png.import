@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ckdwyiymjxwa3"
-path="res://.godot/imported/katana walk.png-55ba6577a34738c7ab33a816fe7c0924.ctex"
+uid="uid://b1cvxm4bdiq33"
+path="res://.godot/imported/katana walk.png-c6a7a5101daa071493a3c67a06211a03.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://SpriteWork/2D-Pixel-Art-Character-Template/Katana walk/katana walk.png"
-dest_files=["res://.godot/imported/katana walk.png-55ba6577a34738c7ab33a816fe7c0924.ctex"]
+source_file="res://spriteWork/2D-Pixel-Art-Character-Template/Katana walk/katana walk.png"
+dest_files=["res://.godot/imported/katana walk.png-c6a7a5101daa071493a3c67a06211a03.ctex"]
 
 [params]
 

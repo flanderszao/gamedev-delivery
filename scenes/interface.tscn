@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://dbtoq7cpi3lva"]
+
+[ext_resource type="Script" uid="uid://dr4ufc6pdxoap" path="res://scenes/interface.gd" id="1_rh14k"]
+
+[node name="Interface" type="Control" unique_id=1820077817]
+clip_contents = true
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -3.0
+offset_top = 3.0
+offset_right = -3.0
+offset_bottom = 3.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_rh14k")
+
+[node name="Energy" type="ProgressBar" parent="." unique_id=97857170]
+layout_mode = 0
+offset_left = 13.0
+offset_top = 611.0
+offset_right = 140.0
+offset_bottom = 638.0
+
+[node name="Recharge" type="ProgressBar" parent="." unique_id=1939799604]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 581.0
+offset_right = 140.0
+offset_bottom = 608.0
+allow_greater = true

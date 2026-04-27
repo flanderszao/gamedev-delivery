@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dl8tqqfa8qjd"
-path="res://.godot/imported/Basic Tilemap.png-63eb05061cc8099dff5293e1c160c7e9.ctex"
+uid="uid://h5u6n518m7rv"
+path="res://.godot/imported/Basic Tilemap.png-2bf12fbc345173ce7e275ebb5a614092.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://SpriteWork/2D-Pixel-Art-Character-Template/Tilemap (Super Basic)/Basic Tilemap.png"
-dest_files=["res://.godot/imported/Basic Tilemap.png-63eb05061cc8099dff5293e1c160c7e9.ctex"]
+source_file="res://spriteWork/2D-Pixel-Art-Character-Template/Tilemap (Super Basic)/Basic Tilemap.png"
+dest_files=["res://.godot/imported/Basic Tilemap.png-2bf12fbc345173ce7e275ebb5a614092.ctex"]
 
 [params]
 

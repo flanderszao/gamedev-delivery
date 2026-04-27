@@ -2,13 +2,13 @@
 
 importer="wav"
 type="AudioStreamWAV"
-uid="uid://cr7hkh0jga5o5"
-path="res://.godot/imported/pulo.wav-1f3026607ec17415f8057a5a8d5a51e5.sample"
+uid="uid://e7u8boh2jpsf"
+path="res://.godot/imported/pulo.wav-f4b381da72c05170686b93635f8a3647.sample"
 
 [deps]
 
-source_file="res://SoundsAssets/pulo.wav"
-dest_files=["res://.godot/imported/pulo.wav-1f3026607ec17415f8057a5a8d5a51e5.sample"]
+source_file="res://soundsAssets/pulo.wav"
+dest_files=["res://.godot/imported/pulo.wav-f4b381da72c05170686b93635f8a3647.sample"]
 
 [params]
 

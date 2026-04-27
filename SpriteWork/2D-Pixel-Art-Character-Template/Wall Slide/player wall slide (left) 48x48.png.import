@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://vvmvk6n7l1jn"
-path="res://.godot/imported/player wall slide (left) 48x48.png-fe5af2c5782a6c8cd96a5374685fb473.ctex"
+uid="uid://ckg723ji8ugst"
+path="res://.godot/imported/player wall slide (left) 48x48.png-37b3cd868ee84af24edc4a7f4f9c67ea.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://SpriteWork/2D-Pixel-Art-Character-Template/Wall Slide/player wall slide (left) 48x48.png"
-dest_files=["res://.godot/imported/player wall slide (left) 48x48.png-fe5af2c5782a6c8cd96a5374685fb473.ctex"]
+source_file="res://spriteWork/2D-Pixel-Art-Character-Template/Wall Slide/player wall slide (left) 48x48.png"
+dest_files=["res://.godot/imported/player wall slide (left) 48x48.png-37b3cd868ee84af24edc4a7f4f9c67ea.ctex"]
 
 [params]
 

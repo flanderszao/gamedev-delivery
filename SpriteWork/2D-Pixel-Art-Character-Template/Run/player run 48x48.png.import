@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ei3brbg3ri2f"
-path="res://.godot/imported/player run 48x48.png-314b691687b3a8a5c412568f145324fd.ctex"
+uid="uid://bkw755wc32ne"
+path="res://.godot/imported/player run 48x48.png-2b5279faddaab3b8fac370cdbf101c32.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://SpriteWork/2D-Pixel-Art-Character-Template/Run/player run 48x48.png"
-dest_files=["res://.godot/imported/player run 48x48.png-314b691687b3a8a5c412568f145324fd.ctex"]
+source_file="res://spriteWork/2D-Pixel-Art-Character-Template/Run/player run 48x48.png"
+dest_files=["res://.godot/imported/player run 48x48.png-2b5279faddaab3b8fac370cdbf101c32.ctex"]
 
 [params]
 

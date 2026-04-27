@@ -2,13 +2,13 @@
 
 importer="wav"
 type="AudioStreamWAV"
-uid="uid://4c8126fclvy5"
-path="res://.godot/imported/pegada.wav-62f95e077d3dd30df9c4244e2882b2f8.sample"
+uid="uid://cam7lu5qxhx21"
+path="res://.godot/imported/pegada.wav-dd74175c0e70f44d6f57e9aee096891d.sample"
 
 [deps]
 
-source_file="res://SoundsAssets/pegada.wav"
-dest_files=["res://.godot/imported/pegada.wav-62f95e077d3dd30df9c4244e2882b2f8.sample"]
+source_file="res://soundsAssets/pegada.wav"
+dest_files=["res://.godot/imported/pegada.wav-dd74175c0e70f44d6f57e9aee096891d.sample"]
 
 [params]
 

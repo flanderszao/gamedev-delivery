@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dj83k6p4tiike"
-path="res://.godot/imported/City background sky.png-260801b389cf65a6217c8f4290b1cee4.ctex"
+uid="uid://4ve0o8vqfy12"
+path="res://.godot/imported/City background sky.png-0c1525e61b89d0ad313f6b52451a08b0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Tiles/GandalfHardcore City Tiles/City background sky.png"
-dest_files=["res://.godot/imported/City background sky.png-260801b389cf65a6217c8f4290b1cee4.ctex"]
+source_file="res://tiles/GandalfHardcore City Tiles/City background sky.png"
+dest_files=["res://.godot/imported/City background sky.png-0c1525e61b89d0ad313f6b52451a08b0.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c3jusyk4ap0ux"
-path="res://.godot/imported/player air spin 48x48.png-c7f99adb4bd9ee27a467faea52c4ea7b.ctex"
+uid="uid://di73iltxgjfu5"
+path="res://.godot/imported/player air spin 48x48.png-4288ddb6d1dc69ba55ef6f9fc7c9e161.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://SpriteWork/2D-Pixel-Art-Character-Template/Air Spin/player air spin 48x48.png"
-dest_files=["res://.godot/imported/player air spin 48x48.png-c7f99adb4bd9ee27a467faea52c4ea7b.ctex"]
+source_file="res://spriteWork/2D-Pixel-Art-Character-Template/Air Spin/player air spin 48x48.png"
+dest_files=["res://.godot/imported/player air spin 48x48.png-4288ddb6d1dc69ba55ef6f9fc7c9e161.ctex"]
 
 [params]
 

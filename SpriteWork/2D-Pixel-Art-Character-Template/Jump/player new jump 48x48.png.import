@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ekowx5nul7ka"
-path="res://.godot/imported/player new jump 48x48.png-e62e9b944c9c4f5fb3c711887555e083.ctex"
+uid="uid://cit2nckoq0twm"
+path="res://.godot/imported/player new jump 48x48.png-c86ab6f01f0ce70ba966a9b9e4752de5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://SpriteWork/2D-Pixel-Art-Character-Template/Jump/player new jump 48x48.png"
-dest_files=["res://.godot/imported/player new jump 48x48.png-e62e9b944c9c4f5fb3c711887555e083.ctex"]
+source_file="res://spriteWork/2D-Pixel-Art-Character-Template/Jump/player new jump 48x48.png"
+dest_files=["res://.godot/imported/player new jump 48x48.png-c86ab6f01f0ce70ba966a9b9e4752de5.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ctreaf77gfalh"
-path="res://.godot/imported/player ledge climb 48x48.png-71ece0a7e4c30699d87c2fcff1a15d69.ctex"
+uid="uid://d32nf6ttfgg60"
+path="res://.godot/imported/player ledge climb 48x48.png-c5be5e97cd8d502ccfe94f0a7728b6b3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://SpriteWork/2D-Pixel-Art-Character-Template/Ledge Grab-Climb/player ledge climb 48x48.png"
-dest_files=["res://.godot/imported/player ledge climb 48x48.png-71ece0a7e4c30699d87c2fcff1a15d69.ctex"]
+source_file="res://spriteWork/2D-Pixel-Art-Character-Template/Ledge Grab-Climb/player ledge climb 48x48.png"
+dest_files=["res://.godot/imported/player ledge climb 48x48.png-c5be5e97cd8d502ccfe94f0a7728b6b3.ctex"]
 
 [params]
 

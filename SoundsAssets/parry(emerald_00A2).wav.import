@@ -2,13 +2,13 @@
 
 importer="wav"
 type="AudioStreamWAV"
-uid="uid://b4x6cwbu0mnwd"
-path="res://.godot/imported/parry(emerald_00A2).wav-dc9bb9873c7b99246121ff0fa9f248a3.sample"
+uid="uid://ramp5vheopob"
+path="res://.godot/imported/parry(emerald_00A2).wav-618907c4050922329123f4013abe4029.sample"
 
 [deps]
 
-source_file="res://SoundsAssets/parry(emerald_00A2).wav"
-dest_files=["res://.godot/imported/parry(emerald_00A2).wav-dc9bb9873c7b99246121ff0fa9f248a3.sample"]
+source_file="res://soundsAssets/parry(emerald_00A2).wav"
+dest_files=["res://.godot/imported/parry(emerald_00A2).wav-618907c4050922329123f4013abe4029.sample"]
 
 [params]
 

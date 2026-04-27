@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://svg3dsantkiv"
-path="res://.godot/imported/Player Jab 48x48.png-3fb8d6122c9fa1a28397e40a612038a1.ctex"
+uid="uid://bh0avb201508r"
+path="res://.godot/imported/Player Jab 48x48.png-29443c8685e973c7fef2e4dcd1e47243.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://SpriteWork/2D-Pixel-Art-Character-Template/Punch Jab/Player Jab 48x48.png"
-dest_files=["res://.godot/imported/Player Jab 48x48.png-3fb8d6122c9fa1a28397e40a612038a1.ctex"]
+source_file="res://spriteWork/2D-Pixel-Art-Character-Template/Punch Jab/Player Jab 48x48.png"
+dest_files=["res://.godot/imported/Player Jab 48x48.png-29443c8685e973c7fef2e4dcd1e47243.ctex"]
 
 [params]
 

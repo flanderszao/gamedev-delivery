@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bhjykpekspvss"
-path="res://.godot/imported/Player Punch Cross 64x64.png-cceaf73e176ca1d93fca4f9d27f4a05f.ctex"
+uid="uid://dvh7nvg8x2kjx"
+path="res://.godot/imported/Player Punch Cross 64x64.png-63dc6ca181c7477e51889be8a461ff11.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://SpriteWork/2D-Pixel-Art-Character-Template/Punch Cross/Player Punch Cross 64x64.png"
-dest_files=["res://.godot/imported/Player Punch Cross 64x64.png-cceaf73e176ca1d93fca4f9d27f4a05f.ctex"]
+source_file="res://spriteWork/2D-Pixel-Art-Character-Template/Punch Cross/Player Punch Cross 64x64.png"
+dest_files=["res://.godot/imported/Player Punch Cross 64x64.png-63dc6ca181c7477e51889be8a461ff11.ctex"]
 
 [params]
 

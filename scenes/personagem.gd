@@ -2,9 +2,9 @@ extends CharacterBody2D
 
 @export var walk_speed := 100 #velocidade máxima de caminhada
 @export var run_speed := 600 #velocidade máxima de corrida
-@export var acceleration := 200.0 #aceleração
-@export var ground_friction := 400.0 #fricção de movimento
-@export var skid_friction := 900.0 #fricção de freio
+@export var acceleration := 200.0 #aceleração -- mudar para valor herdado?
+@export var ground_friction := 400.0 #fricção de movimento -- mudar para valor herdado?
+@export var skid_friction := 900.0 #fricção de freio -- mudar para valor herdado?
 
 @export var jump_speed := -600.0 #velocidade de pulo
 @export var gravity := 2500.0 #gravidade

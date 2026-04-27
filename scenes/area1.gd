@@ -2,7 +2,7 @@ extends Area2D
 
 @export var player_path: NodePath = ^"../Personagem"
 @export var musica_path: NodePath = ^"../MusicaDeFundo"
-@export var bgm_area1: AudioStream = preload("res://SoundsAssets/sf3alex.mp3")
+@export var bgm_area1: AudioStream = preload("res://soundsAssets/sf3alex.mp3")
 
 @onready var player: Node2D = get_node_or_null(player_path)
 @onready var musica: AudioStreamPlayer = get_node_or_null(musica_path)
