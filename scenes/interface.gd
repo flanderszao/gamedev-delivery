@@ -1,11 +1,15 @@
 extends Control
 
+@onready var player = get_tree().current_scene.get_node("Personagem")
+@onready var energy = $Energy
+@onready var recharge = $Recharge
 
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
-
+	pass
+	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	energy.value = player.energy
+	recharge.value = player.recharge
 	pass

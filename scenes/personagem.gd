@@ -119,7 +119,7 @@ func get_input():
 	if Input.is_action_just_pressed("debug_2"):
 		energy += 10
 	
-	if Input.is_action_just_pressed("b_button") and do_action(State.PARRY):
+	if Input.is_action_just_pressed("b_button") and parry_time_left == 0 and do_action(State.PARRY) and can_exit_slide():
 		state = State.PARRY
 		parry_time_left = parry_duration
 		return

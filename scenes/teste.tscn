@@ -7,16 +7,12 @@
 
 [sub_resource type="AudioStreamMP3" id="AudioStreamMP3_wur0a"]
 
-[sub_resource type="LabelSettings" id="LabelSettings_wur0a"]
-
 [node name="Main" type="Node2D" unique_id=1087216480]
 script = ExtResource("1_ddwwg")
 
 [node name="Personagem" parent="." unique_id=1820077817 instance=ExtResource("7_grbdc")]
 
 [node name="Debug_Area" parent="." unique_id=1029699458 instance=ExtResource("3_dp01m")]
-
-[node name="Interface" parent="." unique_id=410211333 instance=ExtResource("2_cgmdw")]
 
 [node name="MusicaDeFundo" type="AudioStreamPlayer" parent="." unique_id=305292665]
 stream = SubResource("AudioStreamMP3_wur0a")
@@ -38,10 +34,11 @@ offset_right = 986.0
 offset_bottom = 33.0
 horizontal_alignment = 2
 
-[node name="GameplayLabel" type="Label" parent="CanvasLayer" unique_id=1213010956]
-offset_left = 15.0
-offset_top = 589.0
-offset_right = 55.0
-offset_bottom = 612.0
-label_settings = SubResource("LabelSettings_wur0a")
-vertical_alignment = 2
+[node name="Interface" parent="CanvasLayer" unique_id=410211333 instance=ExtResource("2_cgmdw")]
+anchors_preset = -1
+anchor_left = -0.05
+offset_left = 50.600002
+offset_top = 4.0
+offset_right = 1201.6001
+offset_bottom = 648.0
+grow_vertical = 0

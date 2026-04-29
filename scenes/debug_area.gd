@@ -1,11 +1,9 @@
 extends Area2D
 
-@export var player_path: NodePath = ^"../Personagem"
-@export var musica_path: NodePath = ^"../MusicaDeFundo"
+@onready var player = get_tree().current_scene.get_node("Personagem")
+@onready var musica = get_tree().current_scene.get_node("MusicaDeFundo")
 @export var bgm_area1: AudioStream = preload("res://soundsAssets/sf3alex.mp3")
 
-@onready var player: Node2D = get_node_or_null(player_path)
-@onready var musica: AudioStreamPlayer = get_node_or_null(musica_path)
 @onready var area_camera: Camera2D = $CameraArea
 
 func _ready():

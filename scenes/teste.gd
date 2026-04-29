@@ -15,10 +15,6 @@ func _ready():
 	#musica.play()
 	
 func _process(_delta):
-	gameplay_label.text = "ENERGY: %s\nRECHARGE: %s" % [
-		int(player.energy),
-		int(player.recharge)
-	]
 	debug_label.text = "BGM: %s\nSTATE: %s\nSFX: %s\nVELY: %s\nVELX: %s\nSTORE.VELX: %s\nRUN: %s" % [
 		get_bgm_name(area1),
 		get_state_name(),
