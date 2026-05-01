@@ -150,6 +150,10 @@ func update_state(input_direction, delta):
 	if is_skidding(input_direction): #desativa corrida se freiar
 		wants_run = false
 
+	if state == State.WALLGRAB and state_frames > 30:
+		face = FACE.Left if face == FACE.Right else FACE.Right
+		state = State.IDLE
+
 	if state == State.PARRY: #FEITO POR IA --- REVISAR
 		parry_time_left = max(parry_time_left - delta, 0.0)
 		if parry_time_left > 0.0:

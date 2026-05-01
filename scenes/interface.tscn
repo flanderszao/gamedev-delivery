@@ -1,6 +1,13 @@
 [gd_scene format=3 uid="uid://dbtoq7cpi3lva"]
 
 [ext_resource type="Script" uid="uid://dr4ufc6pdxoap" path="res://scenes/interface.gd" id="1_rh14k"]
+[ext_resource type="Texture2D" uid="uid://dvt5mu2tlcq3f" path="res://GraphicsAssets/UI/Pixel UI pack 3/energy.png" id="2_t72xj"]
+[ext_resource type="Texture2D" uid="uid://cmvk3udb606s1" path="res://GraphicsAssets/UI/Pixel UI pack 3/energyfull.png" id="3_s0di0"]
+[ext_resource type="Texture2D" uid="uid://ddrqlbad5qrsc" path="res://GraphicsAssets/UI/Pixel UI pack 3/recharge.png" id="4_uidac"]
+[ext_resource type="Texture2D" uid="uid://4nycddddj25c" path="res://GraphicsAssets/UI/Pixel UI pack 3/rechargefull.png" id="5_mfcci"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_uidac"]
+font_size = 8
 
 [node name="Control" type="Control" unique_id=1820077817]
 clip_contents = true
@@ -16,23 +23,51 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_rh14k")
 
-[node name="Energy" type="ProgressBar" parent="." unique_id=97857170]
+[node name="Energy" type="TextureProgressBar" parent="." unique_id=1963791352]
 layout_mode = 0
-offset_left = 13.0
-offset_top = 412.0
-offset_right = 60.0
-offset_bottom = 638.0
-rounded = true
-allow_greater = true
+offset_left = 10.0
+offset_top = 399.0
+offset_right = 53.0
+offset_bottom = 641.0
 fill_mode = 3
+nine_patch_stretch = true
+texture_under = ExtResource("2_t72xj")
+texture_progress = ExtResource("3_s0di0")
 
-[node name="Recharge" type="ProgressBar" parent="." unique_id=1939799604]
+[node name="EnergyLabel" type="Label" parent="Energy" unique_id=1675084322]
 layout_mode = 0
-offset_left = 63.0
-offset_top = 437.0
-offset_right = 76.0
-offset_bottom = 637.0
-rounded = true
-allow_greater = true
+offset_left = 2.0
+offset_top = -22.0
+offset_right = 42.0
+offset_bottom = 1.0
+text = "100"
+horizontal_alignment = 1
+
+[node name="OverchargeLabel" type="Label" parent="Energy" unique_id=631151417]
+layout_mode = 0
+offset_left = 2.0
+offset_top = -39.0
+offset_right = 44.0
+offset_bottom = -16.0
+text = "OVER"
+horizontal_alignment = 1
+
+[node name="Recharge" type="TextureProgressBar" parent="." unique_id=1037842799]
+layout_mode = 0
+offset_left = 55.0
+offset_top = 440.0
+offset_right = 64.0
+offset_bottom = 642.0
 fill_mode = 3
-show_percentage = false
+nine_patch_stretch = true
+texture_under = ExtResource("4_uidac")
+texture_progress = ExtResource("5_mfcci")
+
+[node name="RechargeLabel" type="Label" parent="Recharge" unique_id=1125174913]
+layout_mode = 0
+offset_left = -1.0
+offset_top = -10.0
+offset_right = 19.0
+offset_bottom = 4.0
+text = "1"
+label_settings = SubResource("LabelSettings_uidac")
