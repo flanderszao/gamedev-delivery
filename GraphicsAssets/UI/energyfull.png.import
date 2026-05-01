@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ddrqlbad5qrsc"
-path="res://.godot/imported/recharge.png-fffaef33137c30f0157a422be60fd77c.ctex"
+uid="uid://cmvk3udb606s1"
+path="res://.godot/imported/energyfull.png-9f7fcee685c71b24fcd3a2ed21f52f61.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://GraphicsAssets/UI/Pixel UI pack 3/recharge.png"
-dest_files=["res://.godot/imported/recharge.png-fffaef33137c30f0157a422be60fd77c.ctex"]
+source_file="res://GraphicsAssets/UI/energyfull.png"
+dest_files=["res://.godot/imported/energyfull.png-9f7fcee685c71b24fcd3a2ed21f52f61.ctex"]
 
 [params]
 

@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://y2t63m2wo8ut"]
+
+[ext_resource type="Script" uid="uid://b3ue0xtqm67dt" path="res://scenes/menu_principal.gd" id="1_mk4g1"]
+[ext_resource type="Texture2D" uid="uid://6cl1rxgwnreq" path="res://GraphicsAssets/UI/telainicial.png" id="2_iep14"]
+
+[node name="MenuPrincipal" type="Node2D" unique_id=2130437567]
+script = ExtResource("1_mk4g1")
+
+[node name="MusicaDeFundo" type="AudioStreamPlayer" parent="." unique_id=274102158]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=432657326]
+
+[node name="Logo" type="Sprite2D" parent="CanvasLayer" unique_id=174743056]
+position = Vector2(573, 184)
+scale = Vector2(0.8720703, 0.7797428)
+texture = ExtResource("2_iep14")
+
+[node name="ComecarJogo" type="Button" parent="CanvasLayer" unique_id=1514916128]
+offset_left = 500.0
+offset_top = 330.0
+offset_right = 650.0
+offset_bottom = 391.0
+text = "Começar Jogo"
+
+[node name="Sair" type="Button" parent="CanvasLayer" unique_id=227446859]
+offset_left = 521.0
+offset_top = 399.0
+offset_right = 628.0
+offset_bottom = 447.0
+text = "Sair"

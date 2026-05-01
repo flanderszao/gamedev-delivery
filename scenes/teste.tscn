@@ -7,7 +7,7 @@
 
 [sub_resource type="AudioStreamMP3" id="AudioStreamMP3_wur0a"]
 
-[node name="Main" type="Node2D" unique_id=1087216480]
+[node name="Debug" type="Node2D" unique_id=1087216480]
 script = ExtResource("1_ddwwg")
 
 [node name="Personagem" parent="." unique_id=1820077817 instance=ExtResource("7_grbdc")]

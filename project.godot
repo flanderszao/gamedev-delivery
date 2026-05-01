@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Delivery"
-run/main_scene="uid://e22ryl1um6ap"
+run/main_scene="uid://y2t63m2wo8ut"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://icon.svg"
 

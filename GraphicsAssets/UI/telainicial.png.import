@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://4nycddddj25c"
-path="res://.godot/imported/rechargefull.png-90e8e76a2735b84899e3279809645585.ctex"
+uid="uid://6cl1rxgwnreq"
+path="res://.godot/imported/telainicial.png-a352aa7329f3ea44ef0419e5325c42a2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://GraphicsAssets/UI/Pixel UI pack 3/rechargefull.png"
-dest_files=["res://.godot/imported/rechargefull.png-90e8e76a2735b84899e3279809645585.ctex"]
+source_file="res://GraphicsAssets/UI/telainicial.png"
+dest_files=["res://.godot/imported/telainicial.png-a352aa7329f3ea44ef0419e5325c42a2.ctex"]
 
 [params]
 
