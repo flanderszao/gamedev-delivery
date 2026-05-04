@@ -3,7 +3,6 @@ extends Node2D
 @onready var player = $Personagem
 @onready var debug_label = $CanvasLayer/DebugLabel
 @onready var debug_label2 = $CanvasLayer/DebugLabel2
-@onready var gameplay_label = $CanvasLayer/GameplayLabel
 
 @onready var area1 = $Debug_Area
 @onready var musica = $MusicaDeFundo

@@ -3,6 +3,8 @@
 [ext_resource type="Script" uid="uid://b3ue0xtqm67dt" path="res://scenes/menu_principal.gd" id="1_mk4g1"]
 [ext_resource type="Texture2D" uid="uid://6cl1rxgwnreq" path="res://GraphicsAssets/UI/telainicial.png" id="2_iep14"]
 
+[sub_resource type="Theme" id="Theme_mk4g1"]
+
 [node name="MenuPrincipal" type="Node2D" unique_id=2130437567]
 script = ExtResource("1_mk4g1")
 
@@ -17,14 +19,50 @@ texture = ExtResource("2_iep14")
 
 [node name="ComecarJogo" type="Button" parent="CanvasLayer" unique_id=1514916128]
 offset_left = 500.0
-offset_top = 330.0
+offset_top = 337.0
 offset_right = 650.0
-offset_bottom = 391.0
+offset_bottom = 381.0
 text = "Começar Jogo"
 
 [node name="Sair" type="Button" parent="CanvasLayer" unique_id=227446859]
 offset_left = 521.0
-offset_top = 399.0
+offset_top = 450.0
 offset_right = 628.0
-offset_bottom = 447.0
+offset_bottom = 492.0
 text = "Sair"
+
+[node name="ComoJogar" type="Button" parent="CanvasLayer" unique_id=818452086]
+offset_left = 502.0
+offset_top = 394.0
+offset_right = 648.0
+offset_bottom = 436.0
+text = "Como Jogar"
+
+[node name="Painel" type="Panel" parent="CanvasLayer/ComoJogar" unique_id=841876681]
+layout_mode = 0
+offset_left = -401.0
+offset_top = -325.0
+offset_right = 563.0
+offset_bottom = 176.0
+theme = SubResource("Theme_mk4g1")
+
+[node name="Fechar" type="Button" parent="CanvasLayer/ComoJogar/Painel" unique_id=741594528]
+layout_mode = 0
+offset_left = 857.0
+offset_top = 450.0
+offset_right = 947.0
+offset_bottom = 493.0
+text = "Fechar"
+
+[node name="Instrucoes" type="Label" parent="CanvasLayer/ComoJogar/Painel" unique_id=1135879187]
+layout_mode = 0
+offset_left = 7.0
+offset_top = 14.0
+offset_right = 949.0
+offset_bottom = 453.0
+text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum tristique turpis quis tincidunt convallis. In id nibh mauris. In dignissim dui at aliquam vehicula. In ornare purus a libero iaculis aliquam. Proin tempor, lectus vel mollis ultrices, lorem justo facilisis erat, vel mattis metus erat sit amet nisl. Morbi sit amet mattis dui. Praesent eu massa vitae orci tincidunt fringilla sed at orci. In porta tincidunt nulla quis tempor. Integer a viverra eros. Aliquam faucibus, ligula id accumsan blandit, urna purus interdum libero, vitae consequat nisl nulla non elit. Phasellus quis venenatis orci.
+
+Donec a turpis arcu. Donec elementum eleifend nibh ac auctor. Cras bibendum mattis orci quis interdum. Donec tincidunt risus at mauris consequat, quis feugiat risus lacinia. Morbi eget arcu at tortor bibendum auctor a eu ligula. Quisque tincidunt et lectus id tempor. Vivamus nec interdum dolor. Pellentesque rutrum dignissim justo, sed ultrices tellus imperdiet mollis. Duis vitae nisi in lorem consequat imperdiet.
+
+Praesent egestas nisl commodo sem condimentum tristique et eu ligula. Donec fermentum porttitor justo, sed vehicula tortor consectetur nec. Fusce gravida ipsum in elit elementum, id eleifend massa molestie. Cras vel purus mauris. Integer vel sapien eleifend dolor aliquet sagittis. Vivamus sit amet iaculis enim. Quisque aliquam, nisi vel facilisis euismod, nibh ex molestie mi, ut dictum turpis erat eu velit. Aenean bibendum finibus est, ac euismod odio scelerisque non. Aliquam dapibus euismod dignissim. Proin felis felis, volutpat nec elit dictum, rutrum malesuada justo. Pellentesque lacus ante, interdum quis nunc nec, consectetur auctor nulla."
+autowrap_mode = 1

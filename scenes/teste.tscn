@@ -17,9 +17,19 @@ script = ExtResource("1_ddwwg")
 [node name="MusicaDeFundo" type="AudioStreamPlayer" parent="." unique_id=305292665]
 stream = SubResource("AudioStreamMP3_wur0a")
 volume_db = -25.0
+bus = &"BGM"
 parameters/looping = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1319634963]
+
+[node name="Interface" parent="CanvasLayer" unique_id=410211333 instance=ExtResource("2_cgmdw")]
+anchors_preset = -1
+anchor_left = -0.05
+offset_left = 50.600002
+offset_top = 4.0
+offset_right = 1201.6001
+offset_bottom = 648.0
+grow_vertical = 0
 
 [node name="DebugLabel" type="Label" parent="CanvasLayer" unique_id=822027001]
 offset_left = 10.0
@@ -33,12 +43,3 @@ offset_top = 10.0
 offset_right = 986.0
 offset_bottom = 33.0
 horizontal_alignment = 2
-
-[node name="Interface" parent="CanvasLayer" unique_id=410211333 instance=ExtResource("2_cgmdw")]
-anchors_preset = -1
-anchor_left = -0.05
-offset_left = 50.600002
-offset_top = 4.0
-offset_right = 1201.6001
-offset_bottom = 648.0
-grow_vertical = 0

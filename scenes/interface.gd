@@ -12,7 +12,7 @@ func _ready() -> void:
 	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta) -> void:
 	energy.value = player.energy
 	energylabel.text = "%s" % int(player.energy)
 	overchargelabel.text = "OVER" if player.energy > 100 else ""

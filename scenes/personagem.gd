@@ -334,9 +334,9 @@ func do_wall_jump(): #FEITO POR IA ---- REVISAR
 	sprite.flip_h = wall_dir < 0
 	turn_lock_time = 0.2
 	
-func do_action(state) -> bool:
+func do_action(st) -> bool:
 	if energy <= 100:
-		match state:
+		match st:
 			State.PARRY: #Declarado separado caso eu queira fazer algo com isso depois
 				if energy >= 10:
 					energy -= parry_cost
