@@ -1,9 +1,9 @@
 extends Node2D
 
-@onready var player: Personagem = $Personagem
-@onready var player_camera: Camera2D = $Personagem/mc_Camera
-@onready var death_camera: Camera2D = $CameraGenerica
-@onready var world_boundary: Area2D = $Mundo
+@onready var player = $Personagem
+@onready var player_camera = $Personagem/mc_Camera
+@onready var death_camera = $CameraGenerica
+@onready var world_boundary = $Mundo
 @onready var musica = $MusicaDeFundo
 @onready var death_sfx = preload("res://SoundsAssets/player_miss(castlevania).mp3")
 @onready var vitoria_area = $Vitoria/Vitoria_Area

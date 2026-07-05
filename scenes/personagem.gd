@@ -2,7 +2,7 @@ class_name Personagem
 extends CharacterBody2D
 
 @export var walk_speed := 150 #velocidade máxima de caminhada
-@export var run_speed := 600 #velocidade máxima de corrida
+@export var run_speed := 500 #velocidade máxima de corrida
 @export var acceleration := 200.0 #aceleração -- mudar para valor herdado?
 @export var ground_friction := 400.0 #fricção de movimento -- mudar para valor herdado?
 @export var skid_friction := 900.0 #fricção de freio -- mudar para valor herdado?
@@ -86,8 +86,6 @@ func _ready():
 	update_face(0) #guardar posição inicial das caixas de colisão
 
 func _physics_process(delta):
-	
-	
 	var input_direction := Input.get_axis("left", "right")
 
 	get_input()
@@ -142,8 +140,8 @@ func get_input():
 	wants_run = Input.is_action_pressed("a_button")
 	if wants_run:
 		var boost_dir = 1 if face == FACE.Right else -1
-		if Input.is_action_just_pressed("up") and is_on_floor():
-			velocity.x = boost_dir * min(abs(velocity.x) + 400, run_speed)
+		if energy >= 10 and Input.is_action_just_pressed("up") and is_on_floor():
+			velocity.x = boost_dir * min(abs(velocity.x) + 275, run_speed)
 			velocity.y = jump_speed
 		if Input.is_action_just_pressed("down") and is_on_floor() and state != State.SLIDE:
 			velocity.x = boost_dir * min(abs(velocity.x) + 100, run_speed)

@@ -7,6 +7,7 @@ var speed = 150
 @export var x = 1
 @export var y = null
 var player_position: Vector2
+var direction := Vector2.ZERO
 
 signal hitplayer
 signal hitparry
@@ -21,9 +22,11 @@ func _ready():
 func _physics_process(delta):
 	if has_collided:
 		return
-	if y != null && player_position != null:
-		var direction = (player_position - global_position).normalized()
+	if direction != Vector2.ZERO:
 		position += direction * speed * delta
+	elif y != null && player_position != null:
+		var homing_direction = (player_position - global_position).normalized()
+		position += homing_direction * speed * delta
 	else:
 		position += Vector2(x, 0) * speed * delta
 

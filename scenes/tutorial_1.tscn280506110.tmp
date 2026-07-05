@@ -1123,6 +1123,20 @@ position = Vector2(30, 417)
 collision_layer = 3
 collision_mask = 3
 collision_priority = 2.0
+walk_speed = null
+ground_friction = null
+skid_friction = null
+jump_speed = null
+gravity = null
+energy = null
+parry_cost = null
+jump_cost = null
+frontjump_cost = null
+parry_duration = null
+hurt_duration = null
+death_delay = null
+camera_offset_x = null
+state = null
 
 [node name="TileMaps" type="TileMapLayer" parent="." unique_id=588101816]
 light_mask = 5
@@ -1144,7 +1158,7 @@ position = Vector2(2, -30)
 shape = SubResource("RectangleShape2D_s0ky3")
 
 [node name="Placa_Info1" type="Area2D" parent="TileMaps" unique_id=1584741747]
-position = Vector2(132, 401)
+position = Vector2(131, 399)
 
 [node name="PI_GFX" type="Sprite2D" parent="TileMaps/Placa_Info1" unique_id=1671488829]
 position = Vector2(2, -32)
@@ -1224,7 +1238,6 @@ position = Vector2(1.5, -9)
 shape = SubResource("RectangleShape2D_p2agg")
 
 [node name="Controle" type="CanvasLayer" parent="." unique_id=878672241]
-visible = false
 
 [node name="Tutorial" type="Control" parent="Controle" unique_id=540041511]
 layout_mode = 3

@@ -1144,7 +1144,7 @@ position = Vector2(2, -30)
 shape = SubResource("RectangleShape2D_s0ky3")
 
 [node name="Placa_Info1" type="Area2D" parent="TileMaps" unique_id=1584741747]
-position = Vector2(132, 401)
+position = Vector2(131, 399)
 
 [node name="PI_GFX" type="Sprite2D" parent="TileMaps/Placa_Info1" unique_id=1671488829]
 position = Vector2(2, -32)
@@ -1224,7 +1224,6 @@ position = Vector2(1.5, -9)
 shape = SubResource("RectangleShape2D_p2agg")
 
 [node name="Controle" type="CanvasLayer" parent="." unique_id=878672241]
-visible = false
 
 [node name="Tutorial" type="Control" parent="Controle" unique_id=540041511]
 layout_mode = 3
