@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://btlb71hb41gq" path="res://scenes/obstaculo_prensa.tscn" id="7_oax5d"]
 [ext_resource type="PackedScene" uid="uid://da4mi0lehnr5g" path="res://scenes/obstaculo_plataformaC.tscn" id="8_43bv0"]
 [ext_resource type="PackedScene" uid="uid://dbtoq7cpi3lva" path="res://scenes/interface.tscn" id="9_3rj3r"]
+[ext_resource type="Texture2D" uid="uid://bwnv3eq0usmor" path="res://GraphicsAssets/Tiles/City Tiles/background_ceu_preto_estrelas_vermelhas_1152x648_v2.png" id="12_td0eq"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4y4ae"]
 resource_name = "terreno"
@@ -1268,3 +1269,14 @@ shape = SubResource("WorldBoundaryShape2D_qgbm1")
 
 [node name="CameraGenerica" type="Camera2D" parent="." unique_id=1630962092]
 enabled = false
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="." unique_id=678728081]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground" unique_id=1486881859]
+z_index = -1
+motion_scale = Vector2(0.1, 0.1)
+motion_mirroring = Vector2(1152, 0)
+
+[node name="BackgroundCeuPretoEstrelasVermelhas1152x648V2" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer" unique_id=1756872502]
+position = Vector2(512, 55)
+texture = ExtResource("12_td0eq")

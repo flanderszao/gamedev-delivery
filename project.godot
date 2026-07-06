@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="Preload"
+config/name="Gamedev Delivery Main NOVO"
 run/main_scene="uid://qed2h1v35vj8"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://icon.svg"
