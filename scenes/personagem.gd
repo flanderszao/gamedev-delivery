@@ -359,7 +359,7 @@ func update_energy(delta):
 		energy += transfer
 		recharge -= transfer
 	elif recharge < 20:
-		recharge = move_toward(recharge, 20, 0.5 * delta)
+		recharge = move_toward(recharge, 20, 0.8 * delta)
 	
 	if energy > 100: #lidar com over-charge (é uma mecânica)
 		energy = move_toward(energy, 100, 3 * delta)

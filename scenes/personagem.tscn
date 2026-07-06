@@ -638,7 +638,6 @@ height = 26.0
 [node name="Personagem" type="CharacterBody2D" unique_id=410211333 groups=["Personagem Corpo"]]
 floor_snap_length = 9.0
 script = ExtResource("1_7k68m")
-run_speed = 500
 acceleration = 175.0
 
 [node name="mc_Sprites" type="AnimatedSprite2D" parent="." unique_id=1439858816]

@@ -10,6 +10,8 @@ enum State {
 @onready var sprite = $iA_Sprites
 @onready var sfx = $iA_SFX
 @onready var visao = $iA_Visao
+var s_sfx = preload("res://SoundsAssets/laserSmall_004.ogg")
+
 
 @onready var player = get_tree().current_scene.get_node("Personagem")
 
@@ -26,6 +28,7 @@ var attack_loop := 0
 var vision_base_target := Vector2.ZERO
 
 func _ready():
+	sfx.stream = s_sfx
 	vision_base_target = visao.target_position
 	if face == 0:
 		face = -1
@@ -38,7 +41,6 @@ func _physics_process(delta):
 	behaviorize(delta)
 	moveize(delta)
 	animate(delta)
-	soundize()
 	if state_changed:
 		state_changed = false
 		state_frames = 0
@@ -75,21 +77,13 @@ func animate(_delta):
 		State.ATTACK:
 			sprite.play("ATTACK")
 	pass
-	
-func soundize():
-	match state:
-		State.ATTACK:
-			#add sfx for attack
-			pass
-		_:
-			pass
-	pass
 
 func shoot():
 	var t = tiro.instantiate()
 	t.direction = (player.global_position - global_position).normalized()
 	t.global_position = global_position
 	get_tree().current_scene.add_child(t)
+	sfx.play()
 	t.physics.disabled = true
 	await get_tree().create_timer(0.2).timeout
 	t.physics.disabled = false

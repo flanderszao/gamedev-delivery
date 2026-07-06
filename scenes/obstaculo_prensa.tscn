@@ -90,3 +90,5 @@ position = Vector2(1, -27.5)
 [node name="p_KIL_BOD" type="CollisionShape2D" parent="p_KIL" unique_id=865815288]
 position = Vector2(-0.5, 82)
 shape = SubResource("RectangleShape2D_i02oa")
+
+[node name="p_SFX" type="AudioStreamPlayer2D" parent="." unique_id=99178144]

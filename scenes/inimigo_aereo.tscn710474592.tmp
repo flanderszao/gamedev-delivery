@@ -1,0 +1,81 @@
+[gd_scene format=3 uid="uid://cdquv6xdvttbf"]
+
+[ext_resource type="Script" uid="uid://dasqkp0hlbo5c" path="res://scenes/inimigo_aereo.gd" id="1_sk7ll"]
+[ext_resource type="Texture2D" uid="uid://c4cufdblxjp2s" path="res://GraphicsAssets/SpriteWork/Inimigo/placeholder-aereo-ataque.png" id="2_2aj2n"]
+[ext_resource type="Texture2D" uid="uid://g6fpncxbtkqt" path="res://GraphicsAssets/SpriteWork/Inimigo/placeholder-aereo.png" id="3_db6rb"]
+[ext_resource type="PackedScene" uid="uid://c5thf7kavkapf" path="res://scenes/tiro.tscn" id="4_u3xle"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yfnpf"]
+atlas = ExtResource("2_2aj2n")
+region = Rect2(0, 0, 40, 41)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s4iah"]
+atlas = ExtResource("2_2aj2n")
+region = Rect2(40, 0, 40, 41)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mbd0p"]
+atlas = ExtResource("3_db6rb")
+region = Rect2(0, 0, 40, 41)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rc6ie"]
+atlas = ExtResource("3_db6rb")
+region = Rect2(40, 0, 40, 41)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0xo5c"]
+atlas = ExtResource("3_db6rb")
+region = Rect2(80, 0, 40, 41)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eu613"]
+atlas = ExtResource("3_db6rb")
+region = Rect2(120, 0, 40, 41)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_b12wt"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yfnpf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s4iah")
+}],
+"loop": true,
+"name": &"ATTACK",
+"speed": 7.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mbd0p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rc6ie")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0xo5c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eu613")
+}],
+"loop": true,
+"name": &"IDLE",
+"speed": 7.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_j6cu7"]
+
+[node name="inimigoAereo" type="CharacterBody2D" unique_id=1872549107]
+script = ExtResource("1_sk7ll")
+tiro = ExtResource("4_u3xle")
+
+[node name="iA_Visao" type="RayCast2D" parent="." unique_id=59146546]
+target_position = Vector2(-151, 67)
+
+[node name="iA_Sprites" type="AnimatedSprite2D" parent="." unique_id=1161740337]
+sprite_frames = SubResource("SpriteFrames_b12wt")
+animation = &"IDLE"
+frame_progress = 0.7974414
+
+[node name="iA_Colisao" type="CollisionShape2D" parent="." unique_id=226315501]
+position = Vector2(-4, 6)
+shape = SubResource("RectangleShape2D_j6cu7")
+
+[node name="iA_SFX" type="AudioStreamPlayer2D" parent="." unique_id=1197385228]

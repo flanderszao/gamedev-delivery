@@ -10,6 +10,7 @@ enum State {
 @onready var sprite = $iE_Sprites
 @onready var sfx = $iE_SFX
 @onready var visao = $iE_Visao
+var s_sfx = preload("res://SoundsAssets/laserSmall_004.ogg")
 
 @onready var player = get_tree().current_scene.get_node("Personagem")
 
@@ -26,9 +27,7 @@ var idle_loop := 0
 var attack_loop := 0
 
 func _ready():
-	if face:
-		#código para flippar o behavior caso esteja virado pro outro lado
-		pass
+	sfx.stream = s_sfx
 	pass
 
 func _physics_process(delta):
@@ -85,6 +84,7 @@ func shoot():
 	var t = tiro.instantiate()
 	t.x = face
 	add_child(t)
+	sfx.play()
 	t.physics.disabled = true
 	await get_tree().create_timer(0.15).timeout
 	t.physics.disabled = false

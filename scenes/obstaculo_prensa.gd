@@ -3,7 +3,10 @@ extends StaticBody2D
 @onready var gfx = $p_GFX
 @onready var phy = $p_BOD
 @onready var kil = $p_KIL
+@onready var sfx = $p_SFX
+var s_sfx = preload("res://SoundsAssets/impactMetal_004.ogg")
 @onready var player = get_tree().current_scene.get_node("Personagem")
+
 
 var pressing_down := false
 
@@ -20,7 +23,7 @@ func _ready():
 	kil.body_entered.connect(_on_kil_body_entered)
 	kil.monitoring = false
 	hitkill.connect(Callable(player, "_on_hitkill"))
-
+	sfx.stream = s_sfx
 	loop_press()
 
 
@@ -52,6 +55,7 @@ func press():
 	pressing_down = false
 	kil.monitoring = false
 	gfx.play("defaultB")
+	sfx.play()
 
 	var tween2 = create_tween()
 	tween2.parallel().tween_property(phy.shape, "size", original_size, 0.15)

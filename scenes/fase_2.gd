@@ -36,7 +36,7 @@ func _on_vitoria_area_body_entered(body: Node) -> void:
 	await get_tree().create_timer(0.8).timeout
 	label_vitoria.visible = true
 	await get_tree().create_timer(2.0).timeout
-	get_tree().change_scene_to_file("res://scenes/fase_2.tscn")
+	get_tree().change_scene_to_file("res://scenes/vitoria.tscn")
 	
 func _on_world_boundary_body_entered(body: Node) -> void:
 	if body != player:
