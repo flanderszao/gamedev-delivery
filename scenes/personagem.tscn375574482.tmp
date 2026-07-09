@@ -658,8 +658,6 @@ bus = &"SFX"
 script = ExtResource("15_mq83f")
 
 [node name="mc_SEC" type="AudioStreamPlayer2D" parent="mc_SFX" unique_id=878483335]
-volume_db = 0.059
-bus = &"SFX"
 
 [node name="mc_Camera" type="Camera2D" parent="." unique_id=901854761]
 position = Vector2(46, -75)

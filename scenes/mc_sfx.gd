@@ -17,7 +17,8 @@ enum State { #estados que o personagem pode estar, relevante para sprites
 enum Second {
 	THUD,
 	PARRYHIT,
-	#CHARGE
+	CHARGE,
+	ERROR
 }
 
 #Sons do soundize
@@ -26,10 +27,13 @@ var pegada_sfx = preload("res://SoundsAssets/pegada.wav")
 var freio_sfx = preload("res://SoundsAssets/freio(sonic).wav")
 var parry_sfx = preload("res://SoundsAssets/parry(emerald_00A2).wav")
 var hurt_sfx = preload("res://SoundsAssets/levardano.wav")
+var parryhit_sfx = preload("res://SoundsAssets/parryhit(emerald_00AF).wav")
 
+@onready var sec = $mc_SEC
 #Sons do secondize
 var thud_sfx = preload("res://SoundsAssets/thudparede(pokemon).wav")
-var parryhit_sfx = preload("res://SoundsAssets/parryhit(emerald_00AF).wav")
+var charge_sfx = preload("res://SoundsAssets/recharge(emerald_0001).wav")
+var error_sfx = preload("res://SoundsAssets/Error(Square).ogg")
 
 var step_timer := 0
 
@@ -84,12 +88,21 @@ func soundize(state, state_frames, delta):
 func secondize(second):
 	match second:
 		Second.THUD:
-			stream = thud_sfx
-			play()
+			sec.stream = thud_sfx
+			sec.play()
 			
 		Second.PARRYHIT:
 			stream = parryhit_sfx
 			play()
+			
+		Second.CHARGE:
+			await get_tree().create_timer(0.5).timeout
+			sec.stream = charge_sfx
+			sec.play()
+		
+		Second.ERROR:
+			sec.stream = error_sfx
+			sec.play()
 			
 		_:
 			pass

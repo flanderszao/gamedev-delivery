@@ -46,7 +46,8 @@ enum State { #estados que o personagem pode estar, relevante para sprites
 enum Second {
 	THUD,
 	PARRYHIT,
-	#CHARGE,
+	CHARGE,
+	ERROR
 }
 
 enum FACE {
@@ -245,9 +246,8 @@ func update_state(input_direction, delta):
 
 func update_second(_delta):
 	var impact_velocity_x := velocity.x
-	if (abs(impact_velocity_x) > 300) and is_on_wall() and is_on_floor():
-		sfx.secondize(Second.THUD) #MUDAR QUANDO THUD MUDAR
-		
+	if (abs(impact_velocity_x) > 200) and is_on_wall() and is_on_floor():
+		sfx.secondize(Second.THUD)
 
 func update_movement(input_direction, delta):
 	var target_speed = walk_speed
@@ -364,7 +364,9 @@ func update_energy(delta):
 	if energy > 100: #lidar com over-charge (é uma mecânica)
 		energy = move_toward(energy, 100, 3 * delta)
 		
-	if state == State.SKID and state_frames == 0: #recarregar energia
+	if state == State.SKID and state_frames >= 7: #recarregar energia
+		if recharge > 20:
+			sfx.secondize(Second.CHARGE)
 		energy += int(recharge)
 		recharge = 0
 		return
@@ -396,24 +398,29 @@ func do_action(st) -> bool:
 					energy -= parry_cost
 					return true
 				else:
+					sfx.secondize(Second.ERROR)
 					return false
 			State.JUMP: #Declarado separado caso eu queira fazer algo com isso depois
 				if energy >= 10:
 					energy -= jump_cost
 					return true
 				else:
+					sfx.secondize(Second.ERROR)
 					return false
 			State.FRONTJUMP:
 				if energy >= 10:
 					energy -= frontjump_cost
 					return true
 				else:
+					sfx.secondize(Second.ERROR)
 					return false
 			_:
+				sfx.secondize(Second.ERROR)
 				return false
 	elif energy > 100:
 		return true
 	else:
+		sfx.secondize(Second.ERROR)
 		return false
 	
 func can_exit_slide() -> bool: #FEITO POR IA ---- REVISAR
@@ -430,6 +437,8 @@ func can_exit_slide() -> bool: #FEITO POR IA ---- REVISAR
 	params.exclude = [self]
 
 	var hits := get_world_2d().direct_space_state.intersect_shape(params, 1)
+	if not hits.is_empty():
+		sfx.secondize(Second.ERROR)
 	return hits.is_empty()
 	
 func is_skidding(input_direction): #FEITO POR IA ---- REVISAR
